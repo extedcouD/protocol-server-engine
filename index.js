@@ -6,7 +6,7 @@ const router = require("./router/router");
 const { configLoader } = require("./core/loadConfig");
 
 const PORT = process.env.PORT;
-app.use(express.json());
+app.use(express.json({ limit: '20mb' }));
 
 configLoader
   .init()
