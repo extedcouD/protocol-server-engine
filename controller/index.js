@@ -8,6 +8,7 @@ const {
   insertSession,
   getSession,
   generateSession,
+  findSession,
 } = require("../core/session");
 const { generateHeader, verifyHeader } = require("../core/auth_core");
 const { cache } = require("../core/cache");
@@ -22,10 +23,7 @@ const logger = require("../utils/logger").init();
 const { signNack, errorNack, ack } = require("../utils/responses");
 const { dynamicReponse, dynamicFlow } = require("../core/operations/main");
 const { configLoader } = require("../core/loadConfig");
-const {
-  checkAttributes,
-  comapreObjects,
-} = require("../core/attributeValidation");
+const { comapreObjects } = require("../core/attributeValidation");
 
 const ASYNC_MODE = "ASYNC";
 const SYNC_MODE = "SYNC";
@@ -50,7 +48,7 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
     let sessionId = null;
 
     if (SERVER_TYPE === "BPP") {
-      session = getSession(transaction_id);
+      session = await getSession(transaction_id);
 
       const configObject = configLoader.getConfig();
       configName = dynamicFlow(
@@ -66,21 +64,10 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
           configName: configName || process.env.flow,
           transaction_id: transaction_id,
         });
-        session = getSession(transaction_id);
+        session = await getSession(transaction_id);
       }
     } else {
-      const allSession = cache.get();
-      console.log("allSessions", allSession);
-
-      allSession.map((ses) => {
-        const sessionData = cache.get(ses);
-        console.log("sessionDat", sessionData.transactionIds);
-        if (sessionData.transactionIds.includes(body.context.transaction_id)) {
-          logger.info("<got session>");
-          session = sessionData;
-          sessionId = ses.substring(3);
-        }
-      });
+      session = await findSession(body);
 
       if (!session) {
         console.log("No session exists");
@@ -88,22 +75,39 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
       }
     }
 
-    // const schema = configLoader.getSchema(session.configName)[config];
+    console.log("schema>", JSON.stringify(body));
 
-    // const schemaValidation = await validateSchema(body, schema);
-    // if (!schemaValidation?.status) {
-    //   return res.status(400).send(schemaValidation.message);
-    // }
+    const schemaConfig = configLoader.getSchema(session.configName);
 
-    // const attributeConfig = configLoader.getAttributeConfig(session.configName);
+    if (schemaConfig[config]) {
+      const schema = schemaConfig[config];
+      const schemaValidation = await validateSchema(body, schema);
 
-    // comapreObjects(body, attributeConfig[config], config);
+      if (!schemaValidation?.status) {
+        return res.status(400).send(schemaValidation.message);
+      }
+    } else {
+      logger.info(`Schema config missing for ${config}`);
+    }
+
+    const attributeConfig = configLoader.getAttributeConfig(session.configName);
+
+    if (attributeConfig) {
+      const attrErrors = comapreObjects(body, attributeConfig[config], config);
+
+      if (attrErrors.length) {
+        logger.error("Attribute validation failded: " + attrErrors);
+        return res.status(400).send(attrErrors);
+      }
+    } else {
+      logger.info(`Attribute config missing for ${session.configName}`);
+    }
 
     logger.info("Recieved request: " + JSON.stringify(body?.context));
     res.send(ack);
     handleRequest(body, session, sessionId);
   } catch (err) {
-    console.log(err);
+    console.log(err?.data?.message || err);
   }
 };
 
@@ -125,8 +129,8 @@ const handleRequest = async (response, session, sessionId) => {
       let isUnsolicited = true;
 
       session.calls.map((call) => {
-        if (call?.message_id === response.context.message_id) {
-          config = call.config;
+        if (call.callback?.message_id === response.context.message_id) {
+          config = call.callback?.config;
           isUnsolicited = false;
         }
       });
@@ -146,18 +150,24 @@ const handleRequest = async (response, session, sessionId) => {
       let mode = ASYNC_MODE;
 
       const updatedCalls = updatedSession.calls.map((call) => {
-        if (isUnsolicited && call.config === action) {
-          call.unsolicited = [...(call.unsolicited || []), response];
-          urlEndpint = call.unsolicitedEndpoint;
+        if (isUnsolicited && call.callback.config === action) {
+          call.callback.unsolicited = [
+            ...(call.callback.unsolicited || []),
+            response,
+          ];
+          urlEndpint = call.callback.unsolicitedEndpoint;
         }
 
-        if (call?.message_id === response.context.message_id) {
-          call.becknPayload = [...(call.becknPayload || []), response];
-          call.businessPayload = [
-            ...(call?.businessPayload || []),
+        if (call.callback?.message_id === response.context.message_id) {
+          call.callback.becknPayload = [
+            ...(call.callback.becknPayload || []),
+            response,
+          ];
+          call.callback.businessPayload = [
+            ...(call.callback.businessPayload || []),
             businessPayload,
           ];
-          urlEndpint = call.endpoint;
+          urlEndpint = call.callback.endpoint;
           mode = call?.mode || ASYNC_MODE;
         }
 
@@ -196,7 +206,7 @@ const handleRequest = async (response, session, sessionId) => {
       insertSession(updatedSession);
       let url;
       if (serviceUrl !== undefined) {
-        url = serviceUrl;
+        url = `${process.env.BACKEND_SERVER_URL}${serviceUrl}`;
       } else {
         url = `${process.env.BACKEND_SERVER_URL}/${callback}`;
       }
@@ -252,9 +262,9 @@ const businessToBecknMethod = async (body) => {
         configName: configName,
         transaction_id: transactionId,
       });
-      session = getSession(transactionId);
+      session = await getSession(transactionId);
     } else {
-      session = getSession(transactionId); // session will be premade with beckn to business usecase
+      session = await getSession(transactionId); // session will be premade with beckn to business usecase
 
       if (!session) {
         return {
@@ -283,6 +293,8 @@ const businessToBecknMethod = async (body) => {
 
     if (!seller) {
       becknPayload.context.bap_uri = `${process.env.SUBSCRIBER_URL}/ondc`;
+    } else {
+      becknPayload.context.bpp_uri = "http://localhost:5500/ondc/";
     }
 
     let url;
@@ -337,10 +349,11 @@ const businessToBecknMethod = async (body) => {
           // call.message_id = message_id;
           call.becknPayload = becknPayload;
           mode = call?.mode || ASYNC_MODE;
+          call.callback.message_id = message_id;
         }
-        if (call.config === `on_${config}`) {
-          call.message_id = message_id;
-        }
+        // if (call.config === `on_${config}`) {
+        //   call.message_id = message_id;
+        // }
         return call;
       });
 
@@ -354,15 +367,15 @@ const businessToBecknMethod = async (body) => {
     logger.info("mode::::::::: " + mode);
     if (mode === SYNC_MODE) {
       return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          const newSession = getSession(transactionId);
+        setTimeout(async () => {
+          const newSession = await getSession(transactionId);
           let businessPayload = null;
           let onBecknPayload = null;
 
           newSession.calls.map((call) => {
-            if (call.config === `on_${config}`) {
-              businessPayload = call.businessPayload;
-              onBecknPayload = call.becknPayload;
+            if (call.config === config) {
+              businessPayload = call.callback.businessPayload;
+              onBecknPayload = call.callback.becknPayload;
             }
           });
 
@@ -399,7 +412,7 @@ const businessToBecknMethod = async (body) => {
       // res.send({ updatedSession, becknPayload, becknReponse: response.data });
     }
   } catch (e) {
-    console.log(">>>>>", e);
+    console.log(">>>>>", e?.message, e);
     return { status: "Error", message: errorNack, code: 500 };
     //   res.status(500).send(errorNack);
   }
@@ -413,7 +426,7 @@ const updateSession = async (req, res) => {
       .send({ message: "session Data || transcationID required" });
   }
 
-  session = getSession(transactionId);
+  session = await getSession(transactionId);
 
   if (!session) {
     return res.status(400).send({ message: "No session found" });

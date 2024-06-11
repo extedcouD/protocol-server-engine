@@ -1,0 +1,217 @@
+[2024-06-07T09:26:23.845Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T09:26:24.495Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-07T09:26:24.255Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-07T09:26:24.491Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:26:24.491Z] [[32minfo[39m]: Recieved request: {"bap_id":"fis-buyer-staging.ondc.org","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"406dfa6f-14f7-483c-9938-24ac21afb819","message_id":"eb5c4549-2f9f-4262-8779-4111e50045b7","timestamp":"2024-06-07T09:26:23.934Z","domain":"ONDC:FIS12","version":"2.0.0","ttl":"PT10M","action":"search","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc"}
+[2024-06-07T09:26:25.150Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T09:26:25.533Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:26:25.753Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:26:25.753Z] [[32minfo[39m]: Recieved request: {"bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"fis-staging.ondc.org/ondc-seller","bpp_uri":"http://localhost:5500/ondc/","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"406dfa6f-14f7-483c-9938-24ac21afb819","message_id":"eb5c4549-2f9f-4262-8779-4111e50045b7","timestamp":"2024-06-07T09:26:25.151Z","domain":"ONDC:FIS12","version":"2.0.0","ttl":"PT10M","action":"on_search"}
+[2024-06-07T09:26:25.756Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:26:25.793Z] [[32minfo[39m]: mode::::::::: null
+[2024-06-07T09:31:49.564Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T09:31:49.662Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-07T09:31:49.679Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-07T09:31:49.672Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:31:49.673Z] [[32minfo[39m]: Recieved request: {"bap_id":"fis-buyer-staging.ondc.org","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"3f7cc49e-a792-40ca-9126-0ef554793cd2","message_id":"2a73e02e-016c-4d02-88cd-9f9fb6505780","timestamp":"2024-06-07T09:31:49.578Z","domain":"ONDC:FIS12","version":"2.0.0","ttl":"PT10M","action":"search","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc"}
+[2024-06-07T09:31:50.140Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T09:31:50.382Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:31:50.425Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:31:50.426Z] [[32minfo[39m]: Recieved request: {"bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"fis-staging.ondc.org/ondc-seller","bpp_uri":"http://localhost:5500/ondc/","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"3f7cc49e-a792-40ca-9126-0ef554793cd2","message_id":"2a73e02e-016c-4d02-88cd-9f9fb6505780","timestamp":"2024-06-07T09:31:50.141Z","domain":"ONDC:FIS12","version":"2.0.0","ttl":"PT10M","action":"on_search"}
+[2024-06-07T09:31:50.435Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:31:50.474Z] [[32minfo[39m]: mode::::::::: null
+[2024-06-07T09:40:19.136Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T09:40:19.304Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-07T09:40:19.434Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:40:20.065Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:40:20.065Z] [[32minfo[39m]: Attribute config missing for undefined
+[2024-06-07T09:40:20.065Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"}},"version":"2.0.0","action":"on_search","transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","ttl":"PT30M","timestamp":"2023-09-21T12:41:03.443Z","bpp_id":"ondcfinanceuat.easypay.co.in","bpp_uri":"https://ondcfinanceuat.easypay.co.in/ecommerce/ondc/seller-finance/"}
+[2024-06-07T09:40:20.068Z] [[31merror[39m]: {}
+[2024-06-07T09:40:20.071Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:40:20.071Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:40:20.072Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","bap_id":"bap.credit.becknprotocol.io","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc/on_search","transaction_id":"4b8002a7-e942-4adb-9b2e-f7cd78ed1af0","message_id":"59e58cb7-6021-4219-88bc-61b420d1e4c3","ttl":"PT10M","timestamp":"2024-05-10 13:59:25","bpp_id":"uat-ondc.ftcash.com","bpp_uri":"https://uat-ondc.ftcash.com/ondc_subscribe"}
+[2024-06-07T09:40:20.074Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:40:20.079Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:40:20.080Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:40:20.080Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"action":"on_search","version":"2.0.0","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"stageapi.faircent.com","bpp_uri":"https://stageapi.faircent.com/spp/","transaction_id":"4b8002a7-e942-4adb-9b2e-f7cd78ed1af0","message_id":"59e58cb7-6021-4219-88bc-61b420d1e4c3","timestamp":"2024-06-07T09:40:19.413Z","ttl":"PT30M"}
+[2024-06-07T09:40:20.084Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:40:20.120Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:40:20.120Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:40:20.121Z] [[32minfo[39m]: Recieved request: {"bap_id":"fis-buyer-staging.ondc.org","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"4b8002a7-e942-4adb-9b2e-f7cd78ed1af0","message_id":"59e58cb7-6021-4219-88bc-61b420d1e4c3","timestamp":"2024-06-07T09:40:19.441Z","domain":"ONDC:FIS12","version":"2.0.0","ttl":"PT30M","action":"on_search","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"pramaan.ondc.org/beta/staging/mock/seller","bpp_uri":"https://pramaan.ondc.org/beta/staging/mock/seller"}
+[2024-06-07T09:40:20.126Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:40:20.146Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:40:20.148Z] [[31merror[39m]: {"errors":[{"message":"must NOT have additional properties (size)","details":"/message/catalog/providers/0/descriptor/images/0"}],"status":"fail"}
+[2024-06-07T09:40:20.148Z] [[31merror[39m]: Schema validation : FAIL
+[2024-06-07T09:40:20.149Z] [[31merror[39m]: 4b8002a7-e942-4adb-9b2e-f7cd78ed1af0
+[2024-06-07T09:40:20.156Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:40:20.157Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:40:20.157Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","ttl":"PT5M","timestamp":"2024-06-07T09:40:19.539Z","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","transaction_id":"4b8002a7-e942-4adb-9b2e-f7cd78ed1af0","message_id":"59e58cb7-6021-4219-88bc-61b420d1e4c3","bpp_id":"ondctest.refo.dev","bpp_uri":"https://ondctest.refo.dev/app/ondc/seller"}
+[2024-06-07T09:40:20.160Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:44:32.527Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T09:44:32.720Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-07T09:44:32.825Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:44:32.841Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:44:32.842Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","bap_id":"bap.credit.becknprotocol.io","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc/on_search","transaction_id":"8bbefa78-ea10-43fc-bc02-eb20f5843c2d","message_id":"0a1eb1de-95be-4eee-bbbc-049fa1e45685","ttl":"PT10M","timestamp":"2024-05-10 13:59:25","bpp_id":"uat-ondc.ftcash.com","bpp_uri":"https://uat-ondc.ftcash.com/ondc_subscribe"}
+[2024-06-07T09:44:32.845Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:44:32.878Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:44:32.879Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:44:32.879Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"action":"on_search","version":"2.0.0","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"stageapi.faircent.com","bpp_uri":"https://stageapi.faircent.com/spp/","transaction_id":"8bbefa78-ea10-43fc-bc02-eb20f5843c2d","message_id":"0a1eb1de-95be-4eee-bbbc-049fa1e45685","timestamp":"2024-06-07T09:44:32.845Z","ttl":"PT30M"}
+[2024-06-07T09:44:32.885Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:44:32.928Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:44:32.929Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:44:32.929Z] [[32minfo[39m]: Attribute config missing for undefined
+[2024-06-07T09:44:32.929Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"}},"version":"2.0.0","action":"on_search","transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","ttl":"PT30M","timestamp":"2023-09-21T12:41:03.443Z","bpp_id":"ondcfinanceuat.easypay.co.in","bpp_uri":"https://ondcfinanceuat.easypay.co.in/ecommerce/ondc/seller-finance/"}
+[2024-06-07T09:44:32.934Z] [[31merror[39m]: {}
+[2024-06-07T09:44:32.964Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:44:32.965Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:44:32.966Z] [[32minfo[39m]: Recieved request: {"bap_id":"fis-buyer-staging.ondc.org","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"8bbefa78-ea10-43fc-bc02-eb20f5843c2d","message_id":"0a1eb1de-95be-4eee-bbbc-049fa1e45685","timestamp":"2024-06-07T09:44:32.944Z","domain":"ONDC:FIS12","version":"2.0.0","ttl":"PT30M","action":"on_search","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"pramaan.ondc.org/beta/staging/mock/seller","bpp_uri":"https://pramaan.ondc.org/beta/staging/mock/seller"}
+[2024-06-07T09:44:32.968Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:44:33.145Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:44:33.146Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:44:33.146Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","ttl":"PT5M","timestamp":"2024-06-07T09:44:32.971Z","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","transaction_id":"8bbefa78-ea10-43fc-bc02-eb20f5843c2d","message_id":"0a1eb1de-95be-4eee-bbbc-049fa1e45685","bpp_id":"ondctest.refo.dev","bpp_uri":"https://ondctest.refo.dev/app/ondc/seller"}
+[2024-06-07T09:44:33.148Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:44:33.354Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:44:33.356Z] [[31merror[39m]: {"errors":[{"message":"must NOT have additional properties (size)","details":"/message/catalog/providers/0/descriptor/images/0"}],"status":"fail"}
+[2024-06-07T09:44:33.357Z] [[31merror[39m]: Schema validation : FAIL
+[2024-06-07T09:44:33.357Z] [[31merror[39m]: 8bbefa78-ea10-43fc-bc02-eb20f5843c2d
+[2024-06-07T09:45:29.452Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T09:45:29.641Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-07T09:45:29.783Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:45:29.804Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:45:29.804Z] [[32minfo[39m]: Attribute config missing for undefined
+[2024-06-07T09:45:29.804Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"}},"version":"2.0.0","action":"on_search","transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","ttl":"PT30M","timestamp":"2023-09-21T12:41:03.443Z","bpp_id":"ondcfinanceuat.easypay.co.in","bpp_uri":"https://ondcfinanceuat.easypay.co.in/ecommerce/ondc/seller-finance/"}
+[2024-06-07T09:45:29.807Z] [[31merror[39m]: {}
+[2024-06-07T09:45:29.814Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:45:29.816Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:45:29.818Z] [[32minfo[39m]: Recieved request: {"bap_id":"fis-buyer-staging.ondc.org","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"01d0f5d4-c5f1-4d7a-a64d-5c08fc38af63","message_id":"5155e9b9-93ec-431e-89fb-16dd131bba06","timestamp":"2024-06-07T09:45:29.826Z","domain":"ONDC:FIS12","version":"2.0.0","ttl":"PT30M","action":"on_search","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"pramaan.ondc.org/beta/staging/mock/seller","bpp_uri":"https://pramaan.ondc.org/beta/staging/mock/seller"}
+[2024-06-07T09:45:29.825Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:45:29.847Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:45:29.848Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:45:29.848Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"action":"on_search","version":"2.0.0","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"stageapi.faircent.com","bpp_uri":"https://stageapi.faircent.com/spp/","transaction_id":"01d0f5d4-c5f1-4d7a-a64d-5c08fc38af63","message_id":"5155e9b9-93ec-431e-89fb-16dd131bba06","timestamp":"2024-06-07T09:45:29.848Z","ttl":"PT30M"}
+[2024-06-07T09:45:29.854Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:45:29.877Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:45:29.877Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:45:29.877Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","bap_id":"bap.credit.becknprotocol.io","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc/on_search","transaction_id":"01d0f5d4-c5f1-4d7a-a64d-5c08fc38af63","message_id":"5155e9b9-93ec-431e-89fb-16dd131bba06","ttl":"PT10M","timestamp":"2024-05-10 13:59:25","bpp_id":"uat-ondc.ftcash.com","bpp_uri":"https://uat-ondc.ftcash.com/ondc_subscribe"}
+[2024-06-07T09:45:29.879Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:45:29.997Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:45:29.998Z] [[31merror[39m]: {"errors":[{"message":"must NOT have additional properties (size)","details":"/message/catalog/providers/0/descriptor/images/0"}],"status":"fail"}
+[2024-06-07T09:45:29.998Z] [[31merror[39m]: Schema validation : FAIL
+[2024-06-07T09:45:29.998Z] [[31merror[39m]: 01d0f5d4-c5f1-4d7a-a64d-5c08fc38af63
+[2024-06-07T09:45:30.280Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:45:30.281Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:45:30.281Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","ttl":"PT5M","timestamp":"2024-06-07T09:45:30.033Z","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","transaction_id":"01d0f5d4-c5f1-4d7a-a64d-5c08fc38af63","message_id":"5155e9b9-93ec-431e-89fb-16dd131bba06","bpp_id":"ondctest.refo.dev","bpp_uri":"https://ondctest.refo.dev/app/ondc/seller"}
+[2024-06-07T09:45:30.283Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:50:08.127Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T09:50:08.342Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-07T09:50:08.432Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:50:08.448Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:50:08.449Z] [[32minfo[39m]: Attribute config missing for undefined
+[2024-06-07T09:50:08.449Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"}},"version":"2.0.0","action":"on_search","transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","ttl":"PT30M","timestamp":"2023-09-21T12:41:03.443Z","bpp_id":"ondcfinanceuat.easypay.co.in","bpp_uri":"https://ondcfinanceuat.easypay.co.in/ecommerce/ondc/seller-finance/"}
+[2024-06-07T09:50:08.457Z] [[31merror[39m]: {}
+[2024-06-07T09:50:08.487Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:50:08.488Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:50:08.488Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"action":"on_search","version":"2.0.0","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"stageapi.faircent.com","bpp_uri":"https://stageapi.faircent.com/spp/","transaction_id":"83825cb0-2a9f-4376-a839-c69f2653e882","message_id":"51e1372b-f96d-4f38-9b17-3a62dd2d48a6","timestamp":"2024-06-07T09:50:08.489Z","ttl":"PT30M"}
+[2024-06-07T09:50:08.492Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:50:08.506Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:50:08.506Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:50:08.507Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","bap_id":"bap.credit.becknprotocol.io","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc/on_search","transaction_id":"83825cb0-2a9f-4376-a839-c69f2653e882","message_id":"51e1372b-f96d-4f38-9b17-3a62dd2d48a6","ttl":"PT10M","timestamp":"2024-05-10 13:59:25","bpp_id":"uat-ondc.ftcash.com","bpp_uri":"https://uat-ondc.ftcash.com/ondc_subscribe"}
+[2024-06-07T09:50:08.512Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:50:08.530Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:50:08.530Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:50:08.530Z] [[32minfo[39m]: Recieved request: {"bap_id":"fis-buyer-staging.ondc.org","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"83825cb0-2a9f-4376-a839-c69f2653e882","message_id":"51e1372b-f96d-4f38-9b17-3a62dd2d48a6","timestamp":"2024-06-07T09:50:08.522Z","domain":"ONDC:FIS12","version":"2.0.0","ttl":"PT30M","action":"on_search","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"pramaan.ondc.org/beta/staging/mock/seller","bpp_uri":"https://pramaan.ondc.org/beta/staging/mock/seller"}
+[2024-06-07T09:50:08.533Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:50:08.676Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:50:08.677Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:50:08.677Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","ttl":"PT5M","timestamp":"2024-06-07T09:50:08.510Z","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","transaction_id":"83825cb0-2a9f-4376-a839-c69f2653e882","message_id":"51e1372b-f96d-4f38-9b17-3a62dd2d48a6","bpp_id":"ondctest.refo.dev","bpp_uri":"https://ondctest.refo.dev/app/ondc/seller"}
+[2024-06-07T09:50:08.681Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:50:08.703Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:50:08.708Z] [[31merror[39m]: {"errors":[{"message":"must NOT have additional properties (size)","details":"/message/catalog/providers/0/descriptor/images/0"}],"status":"fail"}
+[2024-06-07T09:50:08.709Z] [[31merror[39m]: Schema validation : FAIL
+[2024-06-07T09:50:08.709Z] [[31merror[39m]: 83825cb0-2a9f-4376-a839-c69f2653e882
+[2024-06-07T09:51:57.235Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T09:51:57.450Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-07T09:51:57.551Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:51:57.556Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:51:57.556Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","bap_id":"bap.credit.becknprotocol.io","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc/on_search","transaction_id":"4958224d-d1df-4a00-84a9-c932a45a1d7f","message_id":"af70a772-bc71-4029-beb3-a4af3f43d8a2","ttl":"PT10M","timestamp":"2024-05-10 13:59:25","bpp_id":"uat-ondc.ftcash.com","bpp_uri":"https://uat-ondc.ftcash.com/ondc_subscribe"}
+[2024-06-07T09:51:57.569Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:51:57.597Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:51:57.597Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:51:57.597Z] [[32minfo[39m]: Attribute config missing for undefined
+[2024-06-07T09:51:57.597Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"}},"version":"2.0.0","action":"on_search","transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","ttl":"PT30M","timestamp":"2023-09-21T12:41:03.443Z","bpp_id":"ondcfinanceuat.easypay.co.in","bpp_uri":"https://ondcfinanceuat.easypay.co.in/ecommerce/ondc/seller-finance/"}
+[2024-06-07T09:51:57.616Z] [[31merror[39m]: {}
+[2024-06-07T09:51:57.625Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:51:57.625Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:51:57.625Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"action":"on_search","version":"2.0.0","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"stageapi.faircent.com","bpp_uri":"https://stageapi.faircent.com/spp/","transaction_id":"4958224d-d1df-4a00-84a9-c932a45a1d7f","message_id":"af70a772-bc71-4029-beb3-a4af3f43d8a2","timestamp":"2024-06-07T09:51:57.639Z","ttl":"PT30M"}
+[2024-06-07T09:51:57.628Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:51:57.635Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:51:57.636Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:51:57.636Z] [[32minfo[39m]: Recieved request: {"bap_id":"fis-buyer-staging.ondc.org","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"4958224d-d1df-4a00-84a9-c932a45a1d7f","message_id":"af70a772-bc71-4029-beb3-a4af3f43d8a2","timestamp":"2024-06-07T09:51:57.645Z","domain":"ONDC:FIS12","version":"2.0.0","ttl":"PT30M","action":"on_search","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"pramaan.ondc.org/beta/staging/mock/seller","bpp_uri":"https://pramaan.ondc.org/beta/staging/mock/seller"}
+[2024-06-07T09:51:57.638Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:51:57.845Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:51:57.845Z] [[31merror[39m]: {"errors":[{"message":"must NOT have additional properties (size)","details":"/message/catalog/providers/0/descriptor/images/0"}],"status":"fail"}
+[2024-06-07T09:51:57.847Z] [[31merror[39m]: Schema validation : FAIL
+[2024-06-07T09:51:57.847Z] [[31merror[39m]: 4958224d-d1df-4a00-84a9-c932a45a1d7f
+[2024-06-07T09:51:57.857Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:51:57.857Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:51:57.858Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","ttl":"PT5M","timestamp":"2024-06-07T09:51:57.731Z","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","transaction_id":"4958224d-d1df-4a00-84a9-c932a45a1d7f","message_id":"af70a772-bc71-4029-beb3-a4af3f43d8a2","bpp_id":"ondctest.refo.dev","bpp_uri":"https://ondctest.refo.dev/app/ondc/seller"}
+[2024-06-07T09:51:57.860Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:59:41.805Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T09:59:42.515Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-07T09:59:42.702Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:59:42.707Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:59:42.707Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"action":"on_search","version":"2.0.0","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"stageapi.faircent.com","bpp_uri":"https://stageapi.faircent.com/spp/","transaction_id":"aa60428a-1a8f-42f6-8400-aeb777cd1f36","message_id":"e47fc022-5bc7-487c-8d99-281e51d86a0a","timestamp":"2024-06-07T09:59:42.681Z","ttl":"PT30M"}
+[2024-06-07T09:59:42.709Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:59:42.731Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:59:42.731Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:59:42.731Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","bap_id":"bap.credit.becknprotocol.io","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc/on_search","transaction_id":"aa60428a-1a8f-42f6-8400-aeb777cd1f36","message_id":"e47fc022-5bc7-487c-8d99-281e51d86a0a","ttl":"PT10M","timestamp":"2024-05-10 13:59:25","bpp_id":"uat-ondc.ftcash.com","bpp_uri":"https://uat-ondc.ftcash.com/ondc_subscribe"}
+[2024-06-07T09:59:42.733Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:59:42.748Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:59:42.748Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:59:42.748Z] [[32minfo[39m]: Attribute config missing for undefined
+[2024-06-07T09:59:42.748Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"}},"version":"2.0.0","action":"on_search","transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","ttl":"PT30M","timestamp":"2023-09-21T12:41:03.443Z","bpp_id":"ondcfinanceuat.easypay.co.in","bpp_uri":"https://ondcfinanceuat.easypay.co.in/ecommerce/ondc/seller-finance/"}
+[2024-06-07T09:59:42.755Z] [[31merror[39m]: {}
+[2024-06-07T09:59:42.796Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:59:42.797Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:59:42.797Z] [[32minfo[39m]: Recieved request: {"bap_id":"fis-buyer-staging.ondc.org","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"aa60428a-1a8f-42f6-8400-aeb777cd1f36","message_id":"e47fc022-5bc7-487c-8d99-281e51d86a0a","timestamp":"2024-06-07T09:59:42.827Z","domain":"ONDC:FIS12","version":"2.0.0","ttl":"PT30M","action":"on_search","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"pramaan.ondc.org/beta/staging/mock/seller","bpp_uri":"https://pramaan.ondc.org/beta/staging/mock/seller"}
+[2024-06-07T09:59:42.798Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T09:59:42.984Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:59:42.987Z] [[31merror[39m]: {"errors":[{"message":"must NOT have additional properties (size)","details":"/message/catalog/providers/0/descriptor/images/0"}],"status":"fail"}
+[2024-06-07T09:59:42.987Z] [[31merror[39m]: Schema validation : FAIL
+[2024-06-07T09:59:42.987Z] [[31merror[39m]: aa60428a-1a8f-42f6-8400-aeb777cd1f36
+[2024-06-07T09:59:43.007Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T09:59:43.007Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T09:59:43.008Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","ttl":"PT5M","timestamp":"2024-06-07T09:59:42.767Z","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","transaction_id":"aa60428a-1a8f-42f6-8400-aeb777cd1f36","message_id":"e47fc022-5bc7-487c-8d99-281e51d86a0a","bpp_id":"ondctest.refo.dev","bpp_uri":"https://ondctest.refo.dev/app/ondc/seller"}
+[2024-06-07T09:59:43.009Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T10:10:53.655Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T10:10:53.831Z] [[32minfo[39m]: mode::::::::: SYNC
+[2024-06-07T10:11:46.848Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T10:11:47.025Z] [[32minfo[39m]: mode::::::::: SYNC
+[2024-06-07T10:12:54.993Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T10:12:55.234Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-07T10:12:55.394Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T10:12:55.400Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T10:12:55.400Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","bap_id":"bap.credit.becknprotocol.io","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc/on_search","transaction_id":"1712deb7-e0e5-4473-989c-1a63ccf13d80","message_id":"eef007fb-2423-48d6-9a2c-29881544b980","ttl":"PT10M","timestamp":"2024-05-10 13:59:25","bpp_id":"uat-ondc.ftcash.com","bpp_uri":"https://uat-ondc.ftcash.com/ondc_subscribe"}
+[2024-06-07T10:12:55.405Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T10:12:55.429Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T10:12:55.429Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T10:12:55.429Z] [[32minfo[39m]: Attribute config missing for undefined
+[2024-06-07T10:12:55.430Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"}},"version":"2.0.0","action":"on_search","transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","ttl":"PT30M","timestamp":"2023-09-21T12:41:03.443Z","bpp_id":"ondcfinanceuat.easypay.co.in","bpp_uri":"https://ondcfinanceuat.easypay.co.in/ecommerce/ondc/seller-finance/"}
+[2024-06-07T10:12:55.446Z] [[31merror[39m]: {}
+[2024-06-07T10:12:55.455Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T10:12:55.456Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T10:12:55.456Z] [[32minfo[39m]: Recieved request: {"bap_id":"fis-buyer-staging.ondc.org","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"1712deb7-e0e5-4473-989c-1a63ccf13d80","message_id":"eef007fb-2423-48d6-9a2c-29881544b980","timestamp":"2024-06-07T10:12:55.502Z","domain":"ONDC:FIS12","version":"2.0.0","ttl":"PT30M","action":"on_search","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"pramaan.ondc.org/beta/staging/mock/seller","bpp_uri":"https://pramaan.ondc.org/beta/staging/mock/seller"}
+[2024-06-07T10:12:55.458Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T10:12:55.468Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T10:12:55.469Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T10:12:55.469Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"action":"on_search","version":"2.0.0","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","bpp_id":"stageapi.faircent.com","bpp_uri":"https://stageapi.faircent.com/spp/","transaction_id":"1712deb7-e0e5-4473-989c-1a63ccf13d80","message_id":"eef007fb-2423-48d6-9a2c-29881544b980","timestamp":"2024-06-07T10:12:55.547Z","ttl":"PT30M"}
+[2024-06-07T10:12:55.471Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T10:12:55.617Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T10:12:55.623Z] [[31merror[39m]: {"errors":[{"message":"must NOT have additional properties (size)","details":"/message/catalog/providers/0/descriptor/images/0"}],"status":"fail"}
+[2024-06-07T10:12:55.623Z] [[31merror[39m]: Schema validation : FAIL
+[2024-06-07T10:12:55.624Z] [[31merror[39m]: 1712deb7-e0e5-4473-989c-1a63ccf13d80
+[2024-06-07T10:12:56.006Z] [[32minfo[39m]: Inside schema validation service for on_search api protocol server
+[2024-06-07T10:12:56.007Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-07T10:12:56.008Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"version":"2.0.0","action":"on_search","ttl":"PT5M","timestamp":"2024-06-07T10:12:55.902Z","bap_id":"fis-buyer-staging.ondc.org","bap_uri":"https://2f59-59-145-217-117.ngrok-free.app/ondc","transaction_id":"1712deb7-e0e5-4473-989c-1a63ccf13d80","message_id":"eef007fb-2423-48d6-9a2c-29881544b980","bpp_id":"ondctest.refo.dev","bpp_uri":"https://ondctest.refo.dev/app/ondc/seller"}
+[2024-06-07T10:12:56.015Z] [[32minfo[39m]: mode>>>>>>>>> ASYNC
+[2024-06-07T10:13:23.000Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-07T10:13:23.157Z] [[32minfo[39m]: mode::::::::: SYNC

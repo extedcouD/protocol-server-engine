@@ -11,7 +11,7 @@ const getBecknObject = async (payload) => {
     const config = payload.context.action;
     // const payload = req.body
     const transaction_id = payload.context.transaction_id;
-    let session = getSession(transaction_id);
+    let session = await getSession(transaction_id);
 
     if (!session) {
       await generateSession({
@@ -21,7 +21,7 @@ const getBecknObject = async (payload) => {
         configName: "metro-flow-1",
         currentTransactionId: transaction_id,
       });
-      session = getSession(transaction_id);
+      session = await getSession(transaction_id);
     }
 
     const { payload: becknPayload, session: updatedSession } =
