@@ -259,6 +259,7 @@ const businessToBecknMethod = async (body) => {
       await generateSession({
         country: session.data.country,
         cityCode: session.data.cityCode,
+        bpp_id: session.data.bpp_id,
         configName: configName,
         transaction_id: transactionId,
       });
@@ -293,9 +294,10 @@ const businessToBecknMethod = async (body) => {
 
     if (!seller) {
       becknPayload.context.bap_uri = `${process.env.SUBSCRIBER_URL}/ondc`;
-    } else {
-      becknPayload.context.bpp_uri = "http://localhost:5500/ondc/";
     }
+    // else {
+    //   becknPayload.context.bpp_uri = "http://localhost:5500/ondc/";
+    // }
 
     let url;
 
