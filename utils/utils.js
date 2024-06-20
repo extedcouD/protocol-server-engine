@@ -20,6 +20,7 @@ const formatted_error = (errors) => {
           }`,
           details: error.instancePath,
         };
+        
         error_list.push(error_dict);
       }
     });
