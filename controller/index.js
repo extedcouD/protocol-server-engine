@@ -336,9 +336,9 @@ const businessToBecknMethod = async (body) => {
     const header = { headers: { Authorization: signedHeader } };
 
     //////////////////// SEND TO NETWORK /////////////////////////
-
+    console.log("becknPayload>>", JSON.stringify(becknPayload));
     const response = await axios.post(`${url}${type}`, becknPayload, header);
-
+    console.log("response: ", response.data);
     //////////////////// SEND TO NETWORK /////////////////////////
 
     /// UPDTTED CALLS ///////
