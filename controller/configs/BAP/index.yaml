@@ -15,15 +15,6 @@ flows:
     calls:
       $ref: ./personal-loan-flow-1/calls.yaml#/calls
 
-
-  - summary: Missed-EMI Payment
-    id: invoice-loan-missed-emi-flow-1
-    shouldDispaly: false
-    protocol:
-      $ref: ./invoice-loan-missed-emi-flow-1/protocolMapping.yaml#/protocol
-    calls:
-      $ref: ./invoice-loan-missed-emi-flow-1/calls.yaml#/calls
-
   - summary: Invoice Based Loans
     id: invoice-loan-flow-1
     domain: ONDC:FIS12
@@ -49,8 +40,15 @@ flows:
     calls:
       $ref: ./invoice-loan-flow-1/calls.yaml#/calls
 
+  - summary: Missed-EMI Payment
+    id: invoice-loan-missed-emi-flow-1
+    shouldDispaly: false
+    protocol:
+      $ref: ./invoice-loan-missed-emi-flow-1/protocolMapping.yaml#/protocol
+    calls:
+      $ref: ./invoice-loan-missed-emi-flow-1/calls.yaml#/calls
+
   - summary: Invoice Based Loans Seller
-    ui: true
     id: invoice-loan-seller-flow-1
     createSessionAtBuyer: true
     domain: ONDC:FIS12

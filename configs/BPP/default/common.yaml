@@ -1,0 +1,6 @@
+mapping:
+  - beckn_key: context
+    value: data.context
+  - beckn_key: message
+    value: data.message
+

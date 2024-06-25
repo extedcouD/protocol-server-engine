@@ -1,0 +1,52 @@
+[2024-06-24T07:51:40.534Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T07:55:18.309Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T08:04:32.535Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T08:04:54.493Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T08:07:26.043Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T08:09:47.392Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T08:23:46.968Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T08:24:05.108Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T09:12:24.868Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T09:12:35.035Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T09:13:56.303Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T09:20:46.494Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T09:21:28.272Z] [[32minfo[39m]: mode::::::::: null
+[2024-06-24T09:21:40.055Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T09:23:02.608Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T09:23:06.102Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-24T09:23:11.773Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T09:23:34.548Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-24T09:23:58.096Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-24T09:23:59.347Z] [[32minfo[39m]: mode::::::::: ASYNC
+[2024-06-24T09:26:58.690Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-24T09:26:59.023Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-24T09:26:59.024Z] [[32minfo[39m]: Attribute config missing for invoice-loan-flow-1
+[2024-06-24T09:26:59.024Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","action":"search","timestamp":"2023-05-25T05:23:03.443Z","version":"2.1.0","bap_uri":"https://bap.credit.becknprotocol.io/","bap_id":"bap.credit.becknprotocol.io","ttl":"PT10M"}
+[2024-06-24T09:26:59.025Z] [[31merror[39m]: {}
+[2024-06-24T09:27:21.857Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-24T09:27:21.861Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-24T09:27:25.427Z] [[32minfo[39m]: Attribute config missing for invoice-loan-flow-1
+[2024-06-24T09:27:25.627Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","action":"search","timestamp":"2023-05-25T05:23:03.443Z","version":"2.1.0","bap_uri":"https://bap.credit.becknprotocol.io/","bap_id":"bap.credit.becknprotocol.io","ttl":"PT10M"}
+[2024-06-24T09:27:26.040Z] [[31merror[39m]: {}
+[2024-06-24T09:29:20.201Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-24T09:29:20.539Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-24T09:29:20.539Z] [[32minfo[39m]: Attribute config missing for invoice-loan-flow-1
+[2024-06-24T09:29:20.539Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","action":"search","timestamp":"2023-05-25T05:23:03.443Z","version":"2.1.0","bap_uri":"https://bap.credit.becknprotocol.io/","bap_id":"bap.credit.becknprotocol.io","ttl":"PT10M"}
+[2024-06-24T09:29:20.541Z] [[31merror[39m]: {}
+[2024-06-24T09:29:39.638Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-24T09:30:21.338Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-24T09:30:21.638Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-24T09:30:23.821Z] [[32minfo[39m]: Attribute config missing for invoice-loan-flow-1
+[2024-06-24T09:30:24.017Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","action":"search","timestamp":"2023-05-25T05:23:03.443Z","version":"2.1.0","bap_uri":"https://bap.credit.becknprotocol.io/","bap_id":"bap.credit.becknprotocol.io","ttl":"PT10M"}
+[2024-06-24T10:29:21.124Z] [[31merror[39m]: {}
+[2024-06-24T10:29:21.136Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-24T10:29:21.139Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-24T10:29:23.007Z] [[32minfo[39m]: Attribute config missing for invoice-loan-flow-1
+[2024-06-24T10:29:23.010Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","action":"search","timestamp":"2023-05-25T05:23:03.443Z","version":"2.1.0","bap_uri":"https://bap.credit.becknprotocol.io/","bap_id":"bap.credit.becknprotocol.io","ttl":"PT10M"}
+[2024-06-24T10:29:23.031Z] [[31merror[39m]: {}
+[2024-06-24T10:29:34.977Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-24T11:08:29.599Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-24T11:08:29.916Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-24T11:08:29.916Z] [[32minfo[39m]: Attribute config missing for invoice-loan-flow-1
+[2024-06-24T11:08:29.916Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","action":"search","timestamp":"2023-05-25T05:23:03.443Z","version":"2.1.0","bap_uri":"https://bap.credit.becknprotocol.io/","bap_id":"bap.credit.becknprotocol.io","ttl":"PT10M"}
+[2024-06-24T11:08:31.938Z] [[31merror[39m]: {}

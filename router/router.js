@@ -2,7 +2,7 @@ const router = require("express").Router();
 const {
   becknToBusiness,
   businessToBecknWrapper,
-  updateSession,
+  updateSession,getsession
 } = require("../controller/index");
 
 // buss > beckn
@@ -17,4 +17,5 @@ router.get("/health", (req, res) => {
   res.send({ status: "working" });
 });
 
+router.get("/session", getsession);
 module.exports = router;

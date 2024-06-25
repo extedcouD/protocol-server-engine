@@ -1,0 +1,7 @@
+calls:
+  - config: "updated"
+    mode: "ASYNC"
+    callback:
+      config: "on_updated"
+      endpoint: "mapper/ondc"
+      unsolicitedEndpoint: "mapper/unsolicited"

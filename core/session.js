@@ -132,7 +132,7 @@ async function generateSession(session_body) {
 
 const findSession = async (body) => {
   try {
-    let session = "session";
+    let session = null;
     const allSessions = await cache.get();
     console.log("allSessions", allSessions);
 

@@ -28,6 +28,10 @@ const { comapreObjects } = require("../core/attributeValidation");
 const ASYNC_MODE = "ASYNC";
 const SYNC_MODE = "SYNC";
 
+const getsession = async (req,res)=>{
+  res.send(await cache.get())
+ }
+ 
 const becknToBusiness = (req, res) => {
   const body = req.body;
   const transaction_id = body?.context?.transaction_id;
@@ -47,6 +51,7 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
     let session = null;
     let sessionId = null;
 
+    // beckn-payload incoming 
     if (SERVER_TYPE === "BPP") {
       session = await getSession(transaction_id);
 
@@ -57,16 +62,24 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
       );
 
       if (!session) {
-        await generateSession({
+        const sessionObject = {
           version: body.context.version,
           country: body?.context?.location?.country?.code,
           cityCode: body?.context?.location?.city?.code,
           configName: configName || process.env.flow,
-          transaction_id: transaction_id,
-        });
+          transaction_id: transaction_id
+      }
+        await generateSession(sessionObject);
         session = await getSession(transaction_id);
+        const buyer_mock_transactionids = await axios.get(`${process.env.BACKEND_SERVER_URL}/cache`)
+        if(buyer_mock_transactionids?.data.length ===0 || !buyer_mock_transactionids?.data?.includes(transaction_id)){
+        const result =   await axios.post(`${process.env.BACKEND_SERVER_URL}/mapper/session`,sessionObject)
+        console.log(result)
+        }
       }
     } else {
+
+      // DIFFERENCE in buyer mode 
       session = await findSession(body);
 
       if (!session) {
@@ -124,7 +137,7 @@ const handleRequest = async (response, session, sessionId) => {
       return console.log("Message ID not defined");
     }
 
-    if (is_buyer) {
+    if (is_buyer || session.ui) {
       let config = null;
       let isUnsolicited = true;
 
@@ -195,10 +208,12 @@ const handleRequest = async (response, session, sessionId) => {
     } else {
       const protocol = configLoader.getMapping(session.configName)[action];
 
+      // select url at which response should be sent
       let { callback, serviceUrl, sync } = dynamicReponse(
         response,
         session.api[action]
       );
+
       callback = callback ? callback : action;
 
       const { payload: becknPayload, session: updatedSession } =
@@ -237,16 +252,19 @@ const businessToBecknWrapper = async (req, res) => {
   }
 };
 
+// incoming business payload 
+
+
 const businessToBecknMethod = async (body) => {
   logger.info("inside businessToBecknMethod controller: ");
 
   try {
     //except target i can fetch rest from my payload
-    let { type, config, data, transactionId, target, configName } = body;
+    let { type, config, data, transactionId, target, configName,ui } = body;
     let seller = false;
-    if (SERVER_TYPE === "BPP") {
+    if (SERVER_TYPE === "BPP" && !ui) { // if request is coming mapping is being done like actual ondc payload while bap protocol server is using different paths and 
       (data = body),
-        (transactionId = data.context.transaction_id),
+        (transactionId = data.context.transaction_id) ||  data.transactionId,
         (type = data.context.action),
         (config = type);
       seller = true;
@@ -277,14 +295,14 @@ const businessToBecknMethod = async (body) => {
       }
     }
 
-    if (SERVER_TYPE === "BAP") {
       session = { ...session, ...data };
-    }
+    
 
     ////////////// session validation ////////////////////
 
     // const protocol = mapping[session.configName][config];
     // const protocol = session.protocol[config];
+    console.log(config,"---> config")
     const protocol = configLoader.getMapping(session.configName)[config];
 
     ////////////// MAPPING/EXTRACTION ////////////////////////
@@ -344,7 +362,8 @@ const businessToBecknMethod = async (body) => {
     /// UPDTTED CALLS ///////
 
     let mode = null;
-    if (SERVER_TYPE === "BAP") {
+    // DIFFERENCE calls config is being updated message_id store krne k liye
+    if (SERVER_TYPE === "BAP" || ui) {
       const updatedCalls = updatedSession.calls.map((call) => {
         const message_id = becknPayload.context.message_id;
         if (call.config === config) {
@@ -443,5 +462,5 @@ module.exports = {
   becknToBusiness,
   businessToBecknMethod,
   businessToBecknWrapper,
-  updateSession,
+  updateSession,getsession
 };

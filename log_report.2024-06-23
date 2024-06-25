@@ -1,0 +1,11 @@
+[2024-06-23T18:03:09.471Z] [[32minfo[39m]: inside businessToBecknMethod controller: 
+[2024-06-23T18:04:30.347Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-23T18:04:30.645Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-23T18:04:30.646Z] [[32minfo[39m]: Attribute config missing for default-flow
+[2024-06-23T18:04:30.646Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","action":"search","timestamp":"2023-05-25T05:23:03.443Z","version":"2.1.0","bap_uri":"https://bap.credit.becknprotocol.io/","bap_id":"bap.credit.becknprotocol.io","ttl":"PT10M"}
+[2024-06-23T18:04:30.657Z] [[31merror[39m]: {"code":"ERR_INVALID_URL","input":"http://localhost:5502http://172.17.0.1:5501/search","base":"http://localhost"}
+[2024-06-23T18:08:04.731Z] [[32minfo[39m]: Inside schema validation service for search api protocol server
+[2024-06-23T18:08:05.008Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-06-23T18:08:05.009Z] [[32minfo[39m]: Attribute config missing for default-flow
+[2024-06-23T18:08:05.009Z] [[32minfo[39m]: Recieved request: {"domain":"ONDC:FIS12","location":{"country":{"code":"IND"},"city":{"code":"*"}},"transaction_id":"a9aaecca-10b7-4d19-b640-b047a7c62196","message_id":"bb579fb8-cb82-4824-be12-fcbc405b6608","action":"search","timestamp":"2023-05-25T05:23:03.443Z","version":"2.1.0","bap_uri":"https://bap.credit.becknprotocol.io/","bap_id":"bap.credit.becknprotocol.io","ttl":"PT10M"}
+[2024-06-23T18:08:05.011Z] [[31merror[39m]: {"code":"ERR_INVALID_URL","input":"http://localhost:5502http://172.17.0.1:5501/search","base":"http://localhost"}

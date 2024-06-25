@@ -1,0 +1,280 @@
+flows:
+  - summary: Personal loan -  Flow
+    id: personal-loan-flow-1
+    domain: ONDC:FIS12
+    sessionData:        
+      bpp_uri: https://fis-staging.ondc.org/ondc-seller/
+      bpp_id: fis-staging.ondc.org/ondc-seller
+      collectedBy: BPP
+      loan_provider_id : PROVIDER_ID
+      loan_provider:
+        images:
+        - url: https://www.icicibank.com/content/dam/icicibank/india/assets/images/header/logo.png
+          size_type: sm 
+        name: ICICI Bank
+        short_desc: ICICI Bank Ltd
+        long_desc: ICICI Bank Ltd, India.
+      loan_type: 
+        code: PERSONAL_LOAN
+        name: Personal Loan
+      quote_ttl: PT15D
+      cancellation_terms:
+      - fulfillment_state:
+          descriptor:
+            code: SANCTIONED
+        cancellation_fee:
+          percentage: 3%
+      - external_ref:
+          mimetype: text/html
+          url: https://bpp.credit.becknprotocol.org/tnc.html
+      - fulfillment_state:
+          descriptor:
+            code: DISBURSED
+        cancellation_fee:
+          percentage: 5%
+      bankAccountNumber: "xxxxxxxxxxxxxx"
+      virtualPaymentAddress: "9988199772@okicic"
+      bankCode: "XXXXXXXX"
+      metro_id: "1"
+      categories:
+        - descriptor:
+            name: Ticket
+            code: TICKET
+          id: C1
+        - descriptor:
+            name: Pass
+            code: PASS
+          id: C2
+      metro_starttime: "2023-09-14T05:30:00.000Z"
+      metro_endtime: "2023-09-14T23:30:00.000Z"
+      metro_images:
+        - url: https://delhimetrorail.com/logos/logo.ico
+      metro_name: "Delhi Metro Rail Limited"
+      currency: INR
+      payment_tags:
+        BUYER_FINDER_FEES:
+          display: false
+          BUYER_FINDER_FEES_TYPE: percent-annualized
+          BUYER_FINDER_FEES_PERCENTAGE: "1"
+        SETTLEMENT_TERMS:
+          display: false
+          SETTLEMENT_WINDOW: PT30D
+          SETTLEMENT_BASIS: INVOICE_RECEIPT
+          MANDATORY_ARBITRATION: "TRUE"
+          COURT_JURISDICTION: New Delhi
+          STATIC_TERMS: https://bpp.credit.becknprotocol.org/personal-banking/loans/personal-loan
+          OFFLINE_CONTRACT: "TRUE"
+      tags:
+        CONTACT_INFO:
+          display: false
+          GRO_NAME: ICICI
+          GRO_EMAIL: lifeline@iciciprulife.com
+          GRO_CONTACT_NUMBER: 1860 266 7766
+          GRO_DESIGNATION: Nodal Grievance Redressal Officer
+          GRO_ADDRESS: One Indiabulls centre, Tower 1, 18th Floor Jupiter mill compound 841, Senapati Bapat Marg, Elphinstone Road, Mumbai 400013
+          CUSTOMER_SUPPORT_LINK: https://buy.iciciprulife.com/buy/GrievanceRedStep.htm?execution=e1s1
+          CUSTOMER_SUPPORT_CONTACT_NUMBER: 1800 1080
+          CUSTOMER_SUPPORT_EMAIL: customer.care@icicibank.com
+        LSP_INFO:
+          LSP_NAME: ICICI_LSP
+          LSP_EMAIL: lsp@iciciprulife.com
+          LSP_CONTACT_NUMBER: 1860 266 7766
+          LSP_ADDRESS: One Indiabulls centre, Tower 1, 18th Floor Jupiter mill compound 841, Senapati Bapat Marg, Elphinstone Road, Mumbai 400013
+      payment_type: PRE-ORDER
+    protocol:
+      $ref: ./personal-loan-flow-1/protocolMapping.yaml#/protocol
+    schema:
+      $ref: ../schema/FIS/index.yaml
+    api:
+      search:
+        default:
+          service_url: /search
+          sync: false
+     
+      select:
+        default:
+          service_url: /select
+          sync: false          
+           
+      init:
+        default:
+          service_url: /init
+          sync: false          
+
+      confirm:
+        default:
+          service_url: /confirm
+          sync: false                    
+
+      update:
+        default:
+          service_url: /update
+          sync: false          
+
+      status:
+        default:
+          service_url: /status
+          sync: false          
+
+
+  - summary: Default -  Flow
+    id: default-flow
+    domain: ONDC:FIS12
+    protocol:
+      $ref: ./default/protocolMapping.yaml#/protocol
+    schema:
+      $ref: ../schema/FIS/index.yaml
+    api:
+      search:
+        default:
+          service_url: http://172.17.0.1:5501/search
+          sync: false
+
+      select:
+        default:
+          service_url: http://172.17.0.1:5501/select
+          sync: false          
+           
+      init:
+        default:
+          service_url: http://172.17.0.1:5501/init
+          sync: false          
+
+      confirm:
+        default:
+          service_url: http://172.17.0.1:5501/confirm
+          sync: false      
+
+      update:
+        default:
+          service_url: http://172.17.0.1:5501/update
+          sync: false      
+
+      status:
+        default:
+          service_url: http://172.17.0.1:5501/status
+          sync: false      
+
+
+flow_selector:
+  search:
+    default:
+      config_id: "default-flow"
+    personal_loan:
+      condition:
+          operation:
+            type: AND
+            input:
+              value:
+              - operation:
+                  type: EQUAL
+                  title: Check search message code
+                  input:
+                    value:
+                      - operation:
+                          type: READ
+                          input:
+                            value: "req_body.message.intent.category.descriptor.code"
+                      - PERSONAL_LOAN
+      config_id: "personal-loan-flow-1"
+  select: 
+    default:
+      config_id: "default-flow"
+    personal_loan:
+      condition:
+          operation:
+            type: AND
+            input:
+              value:
+              - operation:
+                  type: EQUAL
+                  title: Check search message code
+                  input:
+                    value:
+                      - operation:
+                          type: READ
+                          input:
+                            value: "req_body.message.order.items.0.id"
+                      - ITEM_ID_1_PERSONAL-LOAN
+      config_id: "personal-loan-flow-1"
+  
+  init: 
+    default:
+      config_id: "default-flow"
+    personal_loan:
+      condition:
+          operation:
+            type: AND
+            input:
+              value:
+              - operation:
+                  type: EQUAL
+                  title: Check search message code
+                  input:
+                    value:
+                      - operation:
+                          type: READ
+                          input:
+                            value: "req_body.message.order.items.0.id"
+                      - ITEM_ID_1_PERSONAL-LOAN
+      config_id: "personal-loan-flow-1"
+  confirm: 
+    default:
+      config_id: "default-flow"
+    personal_loan:
+      condition:
+          operation:
+            type: AND
+            input:
+              value:
+              - operation:
+                  type: EQUAL
+                  title: Check search message code
+                  input:
+                    value:
+                      - operation:
+                          type: READ
+                          input:
+                            value: "req_body.message.order.items.0.id"
+                      - ITEM_ID_1_PERSONAL-LOAN
+      config_id: "personal-loan-flow-1"
+  update: 
+    default:
+      config_id: "default-flow"
+    personal_loan:
+      condition:
+          operation:
+            type: AND
+            input:
+              value:
+              - operation:
+                  type: EQUAL
+                  title: Check search message code
+                  input:
+                    value:
+                      - operation:
+                          type: READ
+                          input:
+                            value: "req_body.message.order.items.0.id"
+                      - ITEM_ID_1_PERSONAL-LOAN
+      config_id: "personal-loan-flow-1"
+  status: 
+    default:
+      config_id: "default-flow"
+    personal_loan:
+      condition:
+          operation:
+            type: AND
+            input:
+              value:
+              - operation:
+                  type: EQUAL
+                  title: Check search message code
+                  input:
+                    value:
+                      - operation:
+                          type: READ
+                          input:
+                            value: "req_body.message.order.items.0.id"
+                      - ITEM_ID_1_PERSONAL-LOAN
+      config_id: "personal-loan-flow-1"

@@ -1,0 +1,718 @@
+protocol:
+  search:
+    sessionData:
+      - beckn_key: bap_id
+        value: data.context.bap_id
+      - beckn_key: bap_uri
+        value: data.context.bap_uri
+      - beckn_key: cityCode
+        value: data.context.location.city.code || session.cityCode
+      - beckn_key: countryCode
+        value: data.context.location.country.code || session.countryCode
+
+    mapping:
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.transaction_id
+        value: session.transaction_id
+      - beckn_key: context.message_id
+        value: data.context.message_id
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.action
+        value: data.context.action
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.location.country.code
+        value: session.countryCode
+      - beckn_key: context.ttl
+        value: data.context.ttl
+
+      - beckn_key: message.intent.category.descriptor.code
+        value: data.message.intent.category.descriptor.code
+
+  on_search:
+    mapping:
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.bpp_id
+        value: session.bpp_id
+      - beckn_key: context.bpp_uri
+        value: session.bpp_uri
+      - beckn_key: context.location.country.code
+        value: session.country
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.transaction_id
+        value: session.currentTransactionId
+      - beckn_key: context.message_id
+        value: data.context.message_id
+      - beckn_key: context.timestamp
+        value: timestamp
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.ttl
+        value: session.ttl
+      - beckn_key: context.action
+        value: action
+
+      - beckn_key: message.catalog.descriptor.name
+        value: data.name
+
+      - beckn_key: message.catalog.providers[0].id
+        value: data.loan_provider_id            ||  session.loan_provider_id
+
+      - beckn_key: message.catalog.providers[0].descriptor
+        value: data.loan_provider        ||  session.loan_provider
+        
+
+      - beckn_key: message.catalog.descriptor.name
+        value: data.name          ||  session.loan_provider.name
+
+      - beckn_key: message.catalog.providers[0].categories[0].id
+        value: data.category_id
+      - beckn_key: message.catalog.providers[0].categories[0].descriptor
+        value: data.loan_type         || session.loan_type
+
+      - beckn_key: message.catalog.providers[0].items
+        value: data.loan_offers
+      - beckn_key: message.catalog.providers[0].payments[0].tags
+        value: data.payments_tags       || session.payment_tags
+        compute: buildTags(data.payments_tags || session.payment_tags)
+      - beckn_key: message.catalog.providers[0].tags
+        value: data.tags                || session.tags
+        compute: buildTags(data.tags    || session.tags)
+
+      - beckn_key: message.catalog.providers[0].payments[0].collected_by
+        value: data.payment_collectedby || session.collectedBy
+
+      - beckn_key: message
+        value: data.error && data.message
+
+      - beckn_key: error
+        value: data.error
+
+
+  select:
+    sessionData:
+      - beckn_key: itemId
+        value: data.message.order.items[0].id
+      - beckn_key: message_id
+        value: data.context.message_id
+      - beckn_key: bap_uri
+        value: data.context.bap_uri
+        
+
+    mapping:
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.bpp_id
+        value: session.bpp_id
+      - beckn_key: context.bpp_uri
+        value: session.bpp_uri
+      - beckn_key: context.location.country.code
+        value: session.country
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.transaction_id
+        value: session.currentTransactionId
+      - beckn_key: context.message_id
+        value: data.context.message_id
+      - beckn_key: context.timestamp
+        value: timestamp
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.ttl
+        value: session.ttl
+      - beckn_key: context.action
+        value: action
+
+      - beckn_key: message.order.items
+        value: data.message.order.items
+
+  on_select:
+    sessionData:
+      - beckn_key: quote.id
+        value: data.amount_id
+      - beckn_key: quote.amount
+        value: data.final_amount
+      - beckn_key: quote.ttl
+        value: data.ttl
+      - beckn_key: quote.breakup
+        value: data.amount_breakup
+    mapping:
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.bpp_id
+        value: session.bpp_id
+      - beckn_key: context.bpp_uri
+        value: session.bpp_uri
+      - beckn_key: context.location.country.code
+        value: session.country
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.transaction_id
+        value: session.currentTransactionId
+      - beckn_key: context.message_id
+        value: data.context.message_id
+      - beckn_key: context.timestamp
+        value: timestamp
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.ttl
+        value: session.ttl
+      - beckn_key: context.action
+        value: action
+
+      - beckn_key: message.order.provider.id
+        value: data.loan_provider_id            ||  session.loan_provider_id
+
+      - beckn_key: message.order.provider.descriptor
+        value: data.loan_provider        ||  session.loan_provider
+
+      - beckn_key: message.order.provider.tags
+        value: data.tags                || session.tags
+        compute: buildTags(data.tags    || session.tags)
+      - beckn_key: message.order.items
+        value: data.loan_offers
+
+
+      - beckn_key: message.order.quote.id
+        value: (data.amount_id || session.quote.id)
+
+      - beckn_key: message.order.quote.price.value
+        value: (data.final_amount || session.quote.amount)
+      - beckn_key: message.order.quote.price.currency
+        value: session.currency
+      - beckn_key: message.order.quote.breakup
+        value: (data.amount_breakup || session.quote.breakup)
+      - beckn_key: message.order.quote.ttl
+        value: (data.ttl || session.quote.ttl)
+
+      - beckn_key: message
+        value: data.error && data.message
+
+      - beckn_key: error
+        value: data.error
+
+  init:
+    sessionData:
+      - beckn_key: bankCode
+        value: data.message.order.payments[0].collected_by === 'BAP' && data.message.order.payments[0].params.bank_code || session.bankCode
+      - beckn_key: bankAccountNumber
+        value: data.message.order.payments[0].collected_by === 'BAP' && data.message.order.payments[0].params.bank_account_number || session.bankAccountNumber
+      - beckn_key: virtualPaymentAddress
+        value: data.message.order.payments[0].collected_by === 'BAP' && data.message.order.payments[0].params.virtual_payment_address || session.virtualPaymentAddress
+
+
+    mapping:
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.bpp_id
+        value: session.bpp_id
+      - beckn_key: context.bpp_uri
+        value: session.bpp_uri
+      - beckn_key: context.location.country.code
+        value: session.country
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.transaction_id
+        value: session.currentTransactionId
+      - beckn_key: context.message_id
+        value: data.context.message_id
+      - beckn_key: context.timestamp
+        value: timestamp
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.ttl
+        value: session.ttl
+      - beckn_key: context.action
+        value: action
+
+      - beckn_key: message.order.items
+        value: data.message.order.items
+
+  on_init:
+    sessionData:
+      - beckn_key: payment_tags
+        value: '({ ...session.payment_tags, SETTLEMENT_TERMS: { ...session.payment_tags.SETTLEMENT_TERMS, ...data.SETTLEMENT_TERMS } })'
+      - beckn_key: customer
+        value:  data.customer
+      - beckn_key: payments
+        value:  data.payments
+
+        
+    mapping:
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.bpp_id
+        value: session.bpp_id
+      - beckn_key: context.bpp_uri
+        value: session.bpp_uri
+      - beckn_key: context.location.country.code
+        value: session.country
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.transaction_id
+        value: session.currentTransactionId
+      - beckn_key: context.message_id
+        value: data.context.message_id
+      - beckn_key: context.timestamp
+        value: timestamp
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.ttl
+        value: session.ttl
+      - beckn_key: context.action
+        value: action
+      - beckn_key: message.order.provider.id
+        value: data.loan_provider_id            ||  session.loan_provider_id
+
+      - beckn_key: message.order.provider.descriptor
+        value: data.loan_provider        ||  session.loan_provider
+
+      - beckn_key: message.order.provider.tags
+        value: data.tags                || session.tags
+        compute: buildTags(data.tags    || session.tags)
+      - beckn_key: message.order.items
+        value: data.loan_offers
+      - beckn_key: message.order.items
+        value: data.loan_offers
+      - beckn_key: message.order.quote.id
+        value: (data.amount_id || session.quote.id)
+      - beckn_key: message.order.quote.price.value
+        value: (data.final_amount || session.quote.amount)
+      - beckn_key: message.order.quote.price.currency
+        value: session.currency
+      - beckn_key: message.order.quote.breakup
+        value: (data.amount_breakup || session.quote.breakup)
+      - beckn_key: message.order.quote.ttl
+        value: (data.ttl || session.quote.ttl)
+
+        #customer
+      - beckn_key: message.order.fulfillments[0].customer.person.name
+        value: (data.customer.name || session.customer.name )
+      - beckn_key: message.order.fulfillments[0].customer.contact.phone
+        value: (data.customer.phone || session.customer.phone)
+      - beckn_key: message.order.fulfillments[0].customer.contact.email
+        value: (data.customer.email || session.customer.email )
+      - beckn_key: message.order.fulfillments[0].state.descriptor.code
+        value: (data.customer.fulfillment_state  , session.customer.fulfillment_state    )
+
+      - beckn_key: message.order.payments
+        value: (data.payments     || session.payments)
+
+
+
+      - beckn_key: message.order.payments[0].tags
+        value: data.payments_tags                || (session.payment_tags)
+        compute: buildTags(data.payments_tags    || session.payment_tags)
+
+      - beckn_key: message.order.cancellation_terms
+        value: data.cancellation_terms                || session.cancellation_terms
+
+      - beckn_key: message
+        value: data.error && data.message
+
+      - beckn_key: error
+        value: data.error
+
+
+  confirm:
+    mapping:
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.bpp_id
+        value: session.bpp_id
+      - beckn_key: context.bpp_uri
+        value: session.bpp_uri
+      - beckn_key: context.location.country.code
+        value: session.country
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.transaction_id
+        value: session.currentTransactionId
+      - beckn_key: context.message_id
+        value: data.context.message_id
+      - beckn_key: context.timestamp
+        value: timestamp
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.ttl
+        value: session.ttl
+      - beckn_key: context.action
+        value: action
+
+      - beckn_key: message.order.items
+        value: data.message.order.items
+
+  on_confirm:
+    mapping:
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.bpp_id
+        value: session.bpp_id
+      - beckn_key: context.bpp_uri
+        value: session.bpp_uri
+      - beckn_key: context.location.country.code
+        value: session.country
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.transaction_id
+        value: session.currentTransactionId
+      - beckn_key: context.message_id
+        value: data.context.message_id
+      - beckn_key: context.timestamp
+        value: timestamp
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.ttl
+        value: session.ttl
+      - beckn_key: context.action
+        value: action
+
+      - beckn_key: message.order.items
+        value: data.loan_offers
+      - beckn_key: message.order.items
+        value: data.loan_offers
+
+      - beckn_key: message.order.quote.id
+        value: (data.amount_id || session.quote.id)
+      - beckn_key: message.order.quote.price.value
+        value: (data.final_amount || session.quote.amount)
+      - beckn_key: message.order.quote.price.currency
+        value: session.currency
+      - beckn_key: message.order.quote.breakup
+        value: (data.amount_breakup || session.quote.breakup)
+      - beckn_key: message.order.quote.ttl
+        value: (data.ttl || session.quote.ttl)
+
+        #customer
+      - beckn_key: message.order.fulfillments[0].customer.person.name
+        value: (session.customer.name )
+      - beckn_key: message.order.fulfillments[0].customer.contact.phone
+        value: (session.customer.phone)
+      - beckn_key: message.order.fulfillments[0].customer.contact.email
+        value: (session.customer.email )
+      - beckn_key: message.order.fulfillments[0].state.descriptor.code
+        value: ( session.customer.fulfillment_state    )
+
+      #payments
+      - beckn_key: message.order.payments
+        value: (data.payments     || session.payments)
+
+      - beckn_key: message.order.payments[0].tags
+        value: data.payments_tags                || (session.payment_tags)
+        compute: buildTags(data.payments_tags    || session.payment_tags)
+
+
+
+      - beckn_key: message.order.cancellation_terms
+        value: data.cancellation_terms                || session.cancellation_terms
+
+      - beckn_key: message.order.documents
+        value: data.loan_documents    
+    
+
+      - beckn_key: message.order.id
+        value: data.order_id
+
+      - beckn_key: message.order.provider.id
+        value: data.loan_provider_id            ||  session.loan_provider_id
+
+      - beckn_key: message.order.provider.descriptor
+        value: data.loan_provider        ||  session.loan_provider
+
+      - beckn_key: message.order.provider.tags
+        value: data.tags                || session.tags
+        compute: buildTags(data.tags    || session.tags)
+
+      - beckn_key: message
+        value: data.error && data.message
+
+      - beckn_key: error
+        value: data.error
+
+  update:
+
+    mapping:
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.bpp_id
+        value: session.bpp_id
+      - beckn_key: context.bpp_uri
+        value: session.bpp_uri
+      - beckn_key: context.location.country.code
+        value: session.country
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.transaction_id
+        value: session.currentTransactionId
+      - beckn_key: context.message_id
+        value: data.context.message_id
+      - beckn_key: context.timestamp
+        value: timestamp
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.ttl
+        value: session.ttl
+      - beckn_key: context.action
+        value: action
+
+      - beckn_key: message
+        value: data.message
+
+
+  on_update:
+    mapping:
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.bpp_id
+        value: session.bpp_id
+      - beckn_key: context.bpp_uri
+        value: session.bpp_uri
+      - beckn_key: context.location.country.code
+        value: session.country
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.transaction_id
+        value: session.currentTransactionId
+      - beckn_key: context.message_id
+        value: data.context.message_id
+      - beckn_key: context.timestamp
+        value: timestamp
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.ttl
+        value: session.ttl
+      - beckn_key: context.action
+        value: action
+
+      - beckn_key: message.order.items
+        value: data.loan_offers
+      - beckn_key: message.order.items
+        value: data.loan_offers
+
+      - beckn_key: message.order.quote.id
+        value: (data.amount_id || session.quote.id)
+      - beckn_key: message.order.quote.price.value
+        value: (data.final_amount || session.quote.amount)
+      - beckn_key: message.order.quote.price.currency
+        value: session.currency
+      - beckn_key: message.order.quote.breakup
+        value: (data.amount_breakup || session.quote.breakup)
+      - beckn_key: message.order.quote.ttl
+        value: (data.ttl || session.quote.ttl)
+
+        #customer
+      - beckn_key: message.order.fulfillments[0].customer.person.name
+        value: (session.customer.name )
+      - beckn_key: message.order.fulfillments[0].customer.contact.phone
+        value: (session.customer.phone)
+      - beckn_key: message.order.fulfillments[0].customer.contact.email
+        value: (session.customer.email )
+      - beckn_key: message.order.fulfillments[0].state.descriptor.code
+        value: ( session.customer.fulfillment_state    )
+
+      #payments
+      - beckn_key: message.order.payments
+        value: (data.payments     || session.payments)
+
+      - beckn_key: message.order.payments[0].tags
+        value: data.payments_tags                || (session.payment_tags)
+        compute: buildTags(data.payments_tags    || session.payment_tags)
+
+
+
+      - beckn_key: message.order.cancellation_terms
+        value: data.cancellation_terms                || session.cancellation_terms
+
+      - beckn_key: message.order.documents
+        value: data.loan_documents    
+    
+
+      - beckn_key: message.order.id
+        value: data.order_id
+
+      - beckn_key: message.order.provider.id
+        value: data.loan_provider_id            ||  session.loan_provider_id
+
+      - beckn_key: message.order.provider.descriptor
+        value: data.loan_provider        ||  session.loan_provider
+
+      - beckn_key: message.order.provider.tags
+        value: data.tags                || session.tags
+        compute: buildTags(data.tags    || session.tags)
+
+      - beckn_key: message
+        value: data.error && data.message
+
+      - beckn_key: error
+        value: data.error
+
+  status:
+    sessionData:
+      - beckn_key: context.message_id
+        value: session.message_id
+      - beckn_key: context.message_id
+        value: session.message_id
+
+    mapping:
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.bpp_id
+        value: session.bpp_id
+      - beckn_key: context.bpp_uri
+        value: session.bpp_uri
+      - beckn_key: context.location.country.code
+        value: session.country
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.transaction_id
+        value: session.currentTransactionId
+      - beckn_key: context.message_id
+        value: data.context.message_id
+      - beckn_key: context.timestamp
+        value: timestamp
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.ttl
+        value: session.ttl
+      - beckn_key: context.action
+        value: action
+
+      - beckn_key: message.order_id
+        value: data.message.order_id
+
+  # on calls start here
+
+  on_status:
+    mapping:
+      - beckn_key: context.bap_id
+        value: session.bap_id
+      - beckn_key: context.bap_uri
+        value: session.bap_uri
+      - beckn_key: context.bpp_id
+        value: session.bpp_id
+      - beckn_key: context.bpp_uri
+        value: session.bpp_uri
+      - beckn_key: context.location.country.code
+        value: session.country
+      - beckn_key: context.location.city.code
+        value: session.cityCode
+      - beckn_key: context.transaction_id
+        value: session.currentTransactionId
+      - beckn_key: context.message_id
+        value: session.message_id
+      - beckn_key: context.timestamp
+        value: timestamp
+      - beckn_key: context.domain
+        value: session.domain
+      - beckn_key: context.version
+        value: session.version
+      - beckn_key: context.ttl
+        value: session.ttl
+      - beckn_key: context.action
+        value: action
+
+      - beckn_key: message.order.items
+        value: data.loan_offers
+      - beckn_key: message.order.items
+        value: data.loan_offers
+
+      - beckn_key: message.order.quote.id
+        value: data.amount_id
+
+      - beckn_key: message.order.quote.price.value
+        value: data.final_amount
+      - beckn_key: message.order.quote.price.currency
+        value: session.currency
+      - beckn_key: message.order.quote.breakup
+        value: data.amount_breakup
+      - beckn_key: message.order.quote.ttl
+        value: data.ttl
+        #fulfillment
+      - beckn_key: message.order.fulfillments[0].customer.person.name
+        value: data.customer.name
+
+      - beckn_key: message.order.fulfillments[0].customer.contact.phone
+        value: data.customer.phone
+      - beckn_key: message.order.fulfillments[0].customer.contact.email
+        value: data.customer.email
+
+      - beckn_key: message.order.fulfillments[0].state.descriptor.code
+        value: data.customer.fulfillment_state       
+
+      #payments
+      - beckn_key: message.order.payments
+        value: data.payments       
+
+      - beckn_key: message.order.cancellation_terms
+        value: data.cancellation_terms                || session.cancellation_terms
+
+      - beckn_key: message.order.documents
+        value: data.loan_documents    
+    
+
+      - beckn_key: message.order.id
+        value: data.order_id
+
+      - beckn_key: message.order.provider.id
+        value: data.loan_provider_id            ||  session.loan_provider_id
+
+      - beckn_key: message.order.provider.descriptor
+        value: data.loan_provider        ||  session.loan_provider
+
+      - beckn_key: message.order.provider.tags
+        value: data.tags                || session.tags
+        compute: buildTags(data.tags    || session.tags)
+
+      - beckn_key: message
+        value: data.error && data.message
+
+      - beckn_key: error
+        value: data.error
