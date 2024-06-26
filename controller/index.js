@@ -75,7 +75,7 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
       }
     }
 
-    console.log("schema>", JSON.stringify(body));
+    // console.log("schema>", JSON.stringify(body));
 
     const schemaConfig = configLoader.getSchema(session.configName);
 
@@ -129,7 +129,7 @@ const handleRequest = async (response, session, sessionId) => {
       let isUnsolicited = true;
 
       session.calls.map((call) => {
-        if (call.callback?.message_id === response.context.message_id) {
+        if (call.callback?.message_id?.includes(response.context.message_id)) {
           config = call.callback?.config;
           isUnsolicited = false;
         }
@@ -146,6 +146,9 @@ const handleRequest = async (response, session, sessionId) => {
       const { result: businessPayload, session: updatedSession } =
         extractBusinessData(action, response, session, protocol);
 
+      businessPayload.context = {};
+      businessPayload.context.message_id = response.context.message_id;
+
       let urlEndpint = null;
       let mode = ASYNC_MODE;
 
@@ -158,7 +161,7 @@ const handleRequest = async (response, session, sessionId) => {
           urlEndpint = call.callback.unsolicitedEndpoint;
         }
 
-        if (call.callback?.message_id === response.context.message_id) {
+        if (call.callback?.message_id?.includes(response.context.message_id)) {
           call.callback.becknPayload = [
             ...(call.callback.becknPayload || []),
             response,
@@ -336,7 +339,6 @@ const businessToBecknMethod = async (body) => {
     const header = { headers: { Authorization: signedHeader } };
 
     //////////////////// SEND TO NETWORK /////////////////////////
-    console.log("becknPayload>>", JSON.stringify(becknPayload));
     const response = await axios.post(`${url}${type}`, becknPayload, header);
     console.log("response: ", response.data);
     //////////////////// SEND TO NETWORK /////////////////////////
@@ -349,13 +351,14 @@ const businessToBecknMethod = async (body) => {
         const message_id = becknPayload.context.message_id;
         if (call.config === config) {
           // call.message_id = message_id;
-          call.becknPayload = becknPayload;
+          call.becknPayload = [...(call?.becknPayload || []), becknPayload];
           mode = call?.mode || ASYNC_MODE;
-          call.callback.message_id = message_id;
+          call.callback.message_id = [
+            ...(call.callback?.message_id || []),
+            message_id,
+          ];
         }
-        // if (call.config === `on_${config}`) {
-        //   call.message_id = message_id;
-        // }
+
         return call;
       });
 
