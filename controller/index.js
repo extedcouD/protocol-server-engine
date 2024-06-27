@@ -24,9 +24,10 @@ const { signNack, errorNack, ack } = require("../utils/responses");
 const { dynamicReponse, dynamicFlow } = require("../core/operations/main");
 const { configLoader } = require("../core/loadConfig");
 const { comapreObjects } = require("../core/attributeValidation");
-const {compareObjects } = require ("/core/enumValidation")
+const {compareMessageId} = require("../core/contextMesValidation")
+const {compareTransaction} = require("../core/contextTransValidation")
 
-")
+
 
 const ASYNC_MODE = "ASYNC";
 const SYNC_MODE = "SYNC";
