@@ -24,6 +24,9 @@ const { signNack, errorNack, ack } = require("../utils/responses");
 const { dynamicReponse, dynamicFlow } = require("../core/operations/main");
 const { configLoader } = require("../core/loadConfig");
 const { comapreObjects } = require("../core/attributeValidation");
+const {compareObjects } = require ("/core/enumValidation")
+
+")
 
 const ASYNC_MODE = "ASYNC";
 const SYNC_MODE = "SYNC";
@@ -249,7 +252,7 @@ const businessToBecknMethod = async (body) => {
         (transactionId = data.context.transaction_id),
         (type = data.context.action),
         (config = type);
-      seller = true;
+      seller = tru;
     }
 
     let session = body.session;
