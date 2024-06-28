@@ -12,7 +12,7 @@ const {
 } = require("../core/session");
 const { generateHeader, verifyHeader } = require("../core/auth_core");
 const { cache } = require("../core/cache");
-const { parseBoolean, jsonout } = require("../utils/utils");
+const { parseBoolean, jsonout, buildNackPayload } = require("../utils/utils");
 const IS_VERIFY_AUTH = parseBoolean(process.env.IS_VERIFY_AUTH);
 const IS_SYNC = parseBoolean(process.env.BUSINESS_SERVER_IS_SYNC);
 
@@ -23,7 +23,7 @@ const logger = require("../utils/logger").init();
 const { signNack, errorNack, ack } = require("../utils/responses");
 const { dynamicReponse, dynamicFlow } = require("../core/operations/main");
 const { configLoader } = require("../core/loadConfig");
-const { comapreObjects } = require("../core/attributeValidation");
+const { validateAttributes } = require("../core/attributeValidation");
 
 const ASYNC_MODE = "ASYNC";
 const SYNC_MODE = "SYNC";
@@ -71,11 +71,11 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
 
       if (!session) {
         console.log("No session exists");
-        return res.status(500).send(errorNack);
+        return res.status(200).send(errorNack);
       }
     }
 
-    // console.log("schema>", JSON.stringify(body));
+    logger.info("Recieved request: " + JSON.stringify(body));
 
     const schemaConfig = configLoader.getSchema(session.configName);
 
@@ -84,7 +84,7 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
       const schemaValidation = await validateSchema(body, schema);
 
       if (!schemaValidation?.status) {
-        return res.status(400).send(schemaValidation.message);
+        return res.status(200).send(buildNackPayload(schemaValidation.message));
       }
     } else {
       logger.info(`Schema config missing for ${config}`);
@@ -93,17 +93,24 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
     const attributeConfig = configLoader.getAttributeConfig(session.configName);
 
     if (attributeConfig) {
-      const attrErrors = comapreObjects(body, attributeConfig[config], config);
+      const attrErrors = validateAttributes(
+        body,
+        attributeConfig[config],
+        config
+      );
 
       if (attrErrors.length) {
-        logger.error("Attribute validation failded: " + attrErrors);
-        return res.status(400).send(attrErrors);
+        logger.error("Attribute validation failed: " + attrErrors);
+        // return res
+        //   .status(200)
+        //   .send(buildNackPayload(JSON.stringify(attrErrors)));
+      } else {
+        logger.info("Attribute validation SUCCESS");
       }
     } else {
       logger.info(`Attribute config missing for ${session.configName}`);
     }
 
-    logger.info("Recieved request: " + JSON.stringify(body?.context));
     res.send(ack);
     handleRequest(body, session, sessionId);
   } catch (err) {

@@ -7,6 +7,7 @@ require("dotenv").config();
 const router = require("./router/router");
 const { configLoader } = require("./core/loadConfig");
 const { parseBoolean } = require("./utils/utils");
+const logger = require("./utils/logger").init();
 
 const USE_DB = parseBoolean(process.env.USE_DB);
 const PORT = process.env.PORT;
@@ -16,7 +17,7 @@ app.use(express.json());
 configLoader
   .init()
   .then((data) => {
-    console.log("Config loaded successfully.");
+    logger.info("Config loaded successfully.");
 
     if (USE_DB) {
       connectDB();
@@ -24,9 +25,9 @@ configLoader
     app.use(router);
 
     app.listen(PORT, () => {
-      console.log("server listening at port " + PORT);
+      logger.info("server listening at port " + PORT);
     });
   })
   .catch((e) => {
-    console.error("Error loading config file:", e);
+    logger.error("Error loading config file:", e);
   });
