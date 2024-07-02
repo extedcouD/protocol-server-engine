@@ -52,14 +52,19 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
     let sessionId = null;
 
     // beckn-payload incoming 
+    // only difference is create session for seller but give error for buyer
     if (SERVER_TYPE === "BPP") {
       session = await getSession(transaction_id);
 
       const configObject = configLoader.getConfig();
-      configName = dynamicFlow(
-        body,
-        configObject[SERVER_TYPE]["flow_selector"][config]
-      );
+      
+      if(!session?.configName){
+        configName = dynamicFlow(
+          body,
+          configObject[SERVER_TYPE]["flow_selector"][config]
+        )
+      }
+     
 
       if (!session) {
         const sessionObject = {
@@ -137,12 +142,15 @@ const handleRequest = async (response, session, sessionId) => {
       return console.log("Message ID not defined");
     }
 
-    if (is_buyer || session.ui) {
+    // if (is_buyer || session.ui) {
+    // if (is_buyer || 1) {
+
       let config = null;
       let isUnsolicited = true;
 
-      session.calls.map((call) => {
-        if (call.callback?.message_id === response.context.message_id) {
+      // if call is unsolicated
+      session.calls.map((call) => { // sare configs se match krrha h this step won't be necessary 
+        if (call.callback?.message_id === response.context.message_id || call.unsolicated === false) {
           config = call.callback?.config;
           isUnsolicited = false;
         }
@@ -155,14 +163,19 @@ const handleRequest = async (response, session, sessionId) => {
       console.log("config >>>>>", config);
 
       const protocol = configLoader.getMapping(session.configName)[config];
-
+      if(protocol == undefined){
+        throw new Error("Protocol  is undefined")
+      }
       const { result: businessPayload, session: updatedSession } =
         extractBusinessData(action, response, session, protocol);
 
       let urlEndpint = null;
       let mode = ASYNC_MODE;
 
+      // search , on_search etc map 
+      // storing payload and endpoint nikalra h kidhar hit krna h 
       const updatedCalls = updatedSession.calls.map((call) => {
+        // unsolicated check if message id not found
         if (isUnsolicited && call.callback.config === action) {
           call.callback.unsolicited = [
             ...(call.callback.unsolicited || []),
@@ -171,9 +184,9 @@ const handleRequest = async (response, session, sessionId) => {
           urlEndpint = call.callback.unsolicitedEndpoint;
         }
 
-        if (call.callback?.message_id === response.context.message_id) {
+        if (call.callback?.message_id === response.context.message_id || call.unsolicated === false) {
           call.callback.becknPayload = [
-            ...(call.callback.becknPayload || []),
+            ...(call.callback.becknPayload || []), // storing payload
             response,
           ];
           call.callback.businessPayload = [
@@ -198,39 +211,42 @@ const handleRequest = async (response, session, sessionId) => {
       logger.info("mode>>>>>>>>> " + mode);
       if (mode === ASYNC_MODE) {
         await axios.post(`${process.env.BACKEND_SERVER_URL}/${urlEndpint}`, {
-          businessPayload,
-          updatedSession,
-          messageId,
-          sessionId,
-          response,
+          businessPayload, // minified response of response || extract method in buyer mock works on this payload extracts from business payload
+          updatedSession, // request ayi session data kuch value update kii to buyer mock m sync krne  k liye 
+          messageId, // message id <omit>
+          sessionId, // protocol server ki transaction id useless <omit>
+          response, // response network se aya h || copy payload krke functionality h agr user full payload dekhna chahta h 
         });
       }
-    } else {
-      const protocol = configLoader.getMapping(session.configName)[action];
+    // } else {
 
-      // select url at which response should be sent
-      let { callback, serviceUrl, sync } = dynamicReponse(
-        response,
-        session.api[action]
-      );
+    //   const protocol = configLoader.getMapping(session.configName)[action];
 
-      callback = callback ? callback : action;
+    //   // session.calls.find((data)=> )
 
-      const { payload: becknPayload, session: updatedSession } =
-        createBecknObject(session, action, response, protocol);
-      insertSession(updatedSession);
-      let url;
-      if (serviceUrl !== undefined) {
-        url = `${process.env.BACKEND_SERVER_URL}${serviceUrl}`;
-      } else {
-        url = `${process.env.BACKEND_SERVER_URL}/${callback}`;
-      }
-      const mockResponse = await axios.post(`${url}`, becknPayload);
-      if (mockResponse)
-        if (sync) {
-          businessToBecknMethod(mockResponse.data);
-        }
-    }
+    //   // select url at which response should be sent
+    //   let { callback, serviceUrl, sync } = dynamicReponse(
+    //     response,
+    //     session.api[action]
+    //   );
+
+    //   callback = callback ? callback : action;
+
+    //   const { payload: becknPayload, session: updatedSession } =
+    //     createBecknObject(session, action, response, protocol);
+    //   insertSession(updatedSession);
+    //   let url;
+    //   if (serviceUrl !== undefined) {
+    //     url = `${process.env.BACKEND_SERVER_URL}${serviceUrl}`;
+    //   } else {
+    //     url = `${process.env.BACKEND_SERVER_URL}/${callback}`;
+    //   }
+    //   const mockResponse = await axios.post(`${url}`, {businessPayload:becknPayload,updatedSession:session,messageId:messageId, response:response});
+    //   if (mockResponse)
+    //     if (sync) {
+    //       businessToBecknMethod(mockResponse.data);
+    //     }
+    // }
     // throw new Error("an error occurred")
   } catch (e) {
     console.log(e);
@@ -261,7 +277,7 @@ const businessToBecknMethod = async (body) => {
   try {
     //except target i can fetch rest from my payload
     let { type, config, data, transactionId, target, configName,ui } = body;
-    let seller = false;
+    let seller =SERVER_TYPE === "BPP"? true: false;
     if (SERVER_TYPE === "BPP" && !ui) { // if request is coming mapping is being done like actual ondc payload while bap protocol server is using different paths and 
       (data = body),
         (transactionId = data.context.transaction_id) ||  data.transactionId,
@@ -362,7 +378,8 @@ const businessToBecknMethod = async (body) => {
     /// UPDTTED CALLS ///////
 
     let mode = null;
-    // DIFFERENCE calls config is being updated message_id store krne k liye
+    // DIFFERENCE calls config is being updated
+    // message_id store krne k liye nd beckn payload
     if (SERVER_TYPE === "BAP" || ui) {
       const updatedCalls = updatedSession.calls.map((call) => {
         const message_id = becknPayload.context.message_id;
@@ -393,6 +410,7 @@ const businessToBecknMethod = async (body) => {
           let businessPayload = null;
           let onBecknPayload = null;
 
+          // sync mode case 
           newSession.calls.map((call) => {
             if (call.config === config) {
               businessPayload = call.callback.businessPayload;

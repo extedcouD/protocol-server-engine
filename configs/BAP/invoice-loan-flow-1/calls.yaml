@@ -1,4 +1,5 @@
 calls:
+# multi configs are removed ex only single search will be there
   - config: "search"
     mode: "ASYNC"
     callback:

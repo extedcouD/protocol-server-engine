@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 const logger = require("../utils/logger").init();
 
 const buildTags = (tags) => {
+  tags= JSON.parse(tags)
   return Object.keys(tags).map((key) => {
     const subObject = tags[key];
 

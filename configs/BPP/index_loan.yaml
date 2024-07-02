@@ -85,6 +85,8 @@ flows:
       $ref: ./personal-loan-flow-1/protocolMapping.yaml#/protocol
     schema:
       $ref: ../schema/FIS/index.yaml
+    calls:
+      $ref: ./personal-loan-flow-1/calls.yaml#/calls
     api:
       search:
         default:
@@ -128,7 +130,7 @@ flows:
       search:
         default:
           service_url: http://172.17.0.1:5501/search
-          sync: false
+          sync: falsers
 
       select:
         default:
@@ -160,6 +162,7 @@ flows:
     createSessionAtBuyer: true
     domain: ONDC:FIS12
     shouldDispaly: true
+    catalogname: ICICI BANK
     sessionData:
       loanCategaory: INVOICE_BASED_LOAN
       version: "2.1.0"
@@ -257,107 +260,108 @@ flow_selector:
                           input:
                             value: "req_body.message.intent.category.descriptor.code"
                       - INVOICE_BASED_LOAN
-      config_id  : "invoice-loan-flow-1"
+      config_id  : "invoice-loan-seller-flow-1"
       # config_id: "invoice-loan-seller-flow-1"
 
-  select: 
-    default:
-      config_id: "default-flow"
-    personal_loan:
-      condition:
-          operation:
-            type: AND
-            input:
-              value:
-              - operation:
-                  type: EQUAL
-                  title: Check search message code
-                  input:
-                    value:
-                      - operation:
-                          type: READ
-                          input:
-                            value: "req_body.message.order.items.0.id"
-                      - ITEM_ID_1_PERSONAL-LOAN
-      config_id: "personal-loan-flow-1"
+  # select: 
+  #   default:
+  #     config_id: "default-flow"
+  #   personal_loan:
+  #     condition:
+  #         operation:
+  #           type: AND
+  #           input:
+  #             value:
+  #             - operation:
+  #                 type: EQUAL
+  #                 title: Check search message code
+  #                 input:
+  #                   value:
+  #                     - operation:
+  #                         type: READ
+  #                         input:
+  #                           value: "req_body.message.order.items.0.id"
+  #                     - ITEM_ID_1_PERSONAL-LOAN
+  #     config_id: "personal-loan-flow-1"
   
-  init: 
-    default:
-      config_id: "default-flow"
-    personal_loan:
-      condition:
-          operation:
-            type: AND
-            input:
-              value:
-              - operation:
-                  type: EQUAL
-                  title: Check search message code
-                  input:
-                    value:
-                      - operation:
-                          type: READ
-                          input:
-                            value: "req_body.message.order.items.0.id"
-                      - ITEM_ID_1_PERSONAL-LOAN
-      config_id: "personal-loan-flow-1"
-  confirm: 
-    default:
-      config_id: "default-flow"
-    personal_loan:
-      condition:
-          operation:
-            type: AND
-            input:
-              value:
-              - operation:
-                  type: EQUAL
-                  title: Check search message code
-                  input:
-                    value:
-                      - operation:
-                          type: READ
-                          input:
-                            value: "req_body.message.order.items.0.id"
-                      - ITEM_ID_1_PERSONAL-LOAN
-      config_id: "personal-loan-flow-1"
-  update: 
-    default:
-      config_id: "default-flow"
-    personal_loan:
-      condition:
-          operation:
-            type: AND
-            input:
-              value:
-              - operation:
-                  type: EQUAL
-                  title: Check search message code
-                  input:
-                    value:
-                      - operation:
-                          type: READ
-                          input:
-                            value: "req_body.message.order.items.0.id"
-                      - ITEM_ID_1_PERSONAL-LOAN
-      config_id: "personal-loan-flow-1"
-  status: 
-    default:
-      config_id: "default-flow"
-    personal_loan:
-      condition:
-          operation:
-            type: AND
-            input:
-              value:
-              - operation:
-                  type: EQUAL
-                  title: Check search message code
-                  input:
-                    value:
-                      - operation:
-                          type: READ
-                          input:
-                            value: "req_body.message.order.items.0.id"
-                      - ITEM_ID_1_PERSONAL-LOAN
-      config_id: "personal-loan-flow-1"
+  # init: 
+  #   default:
+  #     config_id: "default-flow"
+  #   personal_loan:
+  #     condition:
+  #         operation:
+  #           type: AND
+  #           input:
+  #             value:
+  #             - operation:
+  #                 type: EQUAL
+  #                 title: Check search message code
+  #                 input:
+  #                   value:
+  #                     - operation:
+  #                         type: READ
+  #                         input:
+  #                           value: "req_body.message.order.items.0.id"
+  #                     - ITEM_ID_1_PERSONAL-LOAN
+  #     config_id: "personal-loan-flow-1"
+  # confirm: 
+  #   default:
+  #     config_id: "default-flow"
+  #   personal_loan:
+  #     condition:
+  #         operation:
+  #           type: AND
+  #           input:
+  #             value:
+  #             - operation:
+  #                 type: EQUAL
+  #                 title: Check search message code
+  #                 input:
+  #                   value:
+  #                     - operation:
+  #                         type: READ
+  #                         input:
+  #                           value: "req_body.message.order.items.0.id"
+  #                     - ITEM_ID_1_PERSONAL-LOAN
+  #     config_id: "personal-loan-flow-1"
+  # update: 
+  #   default:
+  #     config_id: "default-flow"
+  #   personal_loan:
+  #     condition:
+  #         operation:
+  #           type: AND
+  #           input:
+  #             value:
+  #             - operation:
+  #                 type: EQUAL
+  #                 title: Check search message code
+  #                 input:
+  #                   value:
+  #                     - operation:
+  #                         type: READ
+  #                         input:
+  #                           value: "req_body.message.order.items.0.id"
+  #                     - ITEM_ID_1_PERSONAL-LOAN
+  #     config_id: "personal-loan-flow-1"
+  # status: 
+  #   default:
+  #     config_id: "default-flow"
+  #   personal_loan:
+  #     condition:
+  #         operation:
+  #           type: AND
+  #           input:
+  #             value:
+  #             - operation:
+  #                 type: EQUAL
+  #                 title: Check search message code
+  #                 input:
+  #                   value:
+  #                     - operation:
+  #                         type: READ
+  #                         input:
+  #                           value: "req_body.message.order.items.0.id"
+  #                     - ITEM_ID_1_PERSONAL-LOAN
+  #     config_id: "personal-loan-flow-1"
+

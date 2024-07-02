@@ -35,7 +35,7 @@ flows:
       paymentCollectedBy: BPP
       bankAccountNumber: "123456789"
       virtualPaymentAddress: "adasd@okiciic"
-      bankCode: "fj3jf9ij3f02"
+      bankCode: "fj3jf9ij3f2"
       paymentTagsSearch:
         BUYER_FINDER_FEES:
           BUYER_FINDER_FEES_TYPE: percent-annualized
