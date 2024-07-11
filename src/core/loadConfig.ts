@@ -1,13 +1,14 @@
-const axios = require("axios");
-const { parseBoolean } = require("../utils/utils");
+import axios from "axios";
+import { parseBoolean } from "../utils/utils";
 const SERVER_TYPE = process.env.SERVER_TYPE;
-const localConfig = parseBoolean(process.env.localConfig);
-const fs = require("fs");
-const yaml = require("yaml");
-const path = require("path");
-const $RefParser = require("@apidevtools/json-schema-ref-parser");
+const localConfig: boolean | null = parseBoolean(process.env.localConfig);
+import fs from "fs";
+import yaml from "yaml";
+import path from "path";
+import $RefParser from "@apidevtools/json-schema-ref-parser";
 
 class ConfigLoader {
+  config: any;
   constructor() {
     this.config = null;
   }
@@ -43,7 +44,7 @@ class ConfigLoader {
 
         return response.data;
       }
-    } catch (e) {
+    } catch (e: any) {
       throw new Error(e);
     }
   }
@@ -56,13 +57,13 @@ class ConfigLoader {
     return this.config.schema;
   }
 
-  getMapping(configName) {
+  getMapping(configName: string) {
     if (!SERVER_TYPE) {
       throw new Error("SERVER_TYPE not found");
     }
     let mapping = null;
 
-    this.config[SERVER_TYPE].flows?.forEach((flow) => {
+    this.config[SERVER_TYPE].flows?.forEach((flow: any) => {
       if (flow.id === configName) {
         mapping = flow.protocol;
         return;
@@ -72,11 +73,9 @@ class ConfigLoader {
     return mapping;
   }
 
-  getAttributeConfig(configName) {
+  getAttributeConfig(configName: string) {
     return this.config.attributes[configName];
   }
 }
 
-const configLoader = new ConfigLoader();
-
-module.exports = { configLoader };
+export const configLoader = new ConfigLoader();

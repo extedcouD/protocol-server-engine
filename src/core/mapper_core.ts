@@ -1,109 +1,117 @@
-const { v4: uuidv4 } = require("uuid");
+import { v4 as uuidv4 } from "uuid";
 const logger = require("../utils/logger").init();
 
-const buildTags = (tags) => {
-  return Object.keys(tags).map((key) => {
-    const subObject = tags[key];
-
-    let display =
-      subObject["display"] === undefined
-        ? {}
-        : { display: subObject["display"] };
-    delete subObject["display"];
-    const list = Object.keys(subObject).map((subKey) => {
-      const value = subObject[subKey];
-      return {
-        descriptor: {
-          code: subKey,
-        },
-        value: typeof value === "string" ? value : value.toString(),
-      };
-    });
-
-    return {
-      descriptor: {
-        code: key,
-      },
-      ...display,
-      list: list,
-    };
-  });
+type Config = {
+  type?: string;
+  value?: any;
+  check?: string;
+  commanData?: Record<string, string>[];
+  path?: string;
 };
 
-const buildContext = (session, action) => {
-  const contextConfig = [
-    {
-      beckn_key: "bap_id",
-      value: "session.bap_id",
-    },
-    {
-      beckn_key: "bap_uri",
-      value: "session.bap_uri",
-    },
-    {
-      beckn_key: "bpp_id",
-      value: "session.bpp_id",
-    },
-    {
-      beckn_key: "bpp_uri",
-      value: "session.bpp_uri",
-    },
-    {
-      beckn_key: "location.country.code",
-      value: "session.country",
-    },
-    {
-      beckn_key: "location.city.code",
-      value: "session.cityCode",
-    },
-    {
-      beckn_key: "transaction_id",
-      value: "session.currentTransactionId",
-    },
-    {
-      beckn_key: "message_id",
-      value: "uuidv4()",
-    },
-    {
-      beckn_key: "timestamp",
-      value: "new Date().toISOString()",
-    },
-    {
-      beckn_key: "domain",
-      value: "session.domain",
-    },
-    {
-      beckn_key: "version",
-      value: "session.version",
-    },
-    {
-      beckn_key: "ttl",
-      value: "session.ttl",
-    },
-    {
-      beckn_key: "action",
-      value: "action",
-    },
-  ];
-  const context = {};
+// const buildTags = (tags: any) => {
+//   return Object.keys(tags).map((key) => {
+//     const subObject = tags[key];
 
-  contextConfig.map((item) => {
-    try {
-      if (eval(item.value) && (item.check ? eval(item.check) : true))
-        createNestedField(
-          context,
-          item.beckn_key,
-          item.compute ? eval(item.compute) : eval(item.value)
-        );
-    } catch (err) {
-      logger.info(item.value + " is undefined, will not be mapping that");
-    }
-  });
+//     let display =
+//       subObject["display"] === undefined
+//         ? {}
+//         : { display: subObject["display"] };
+//     delete subObject["display"];
+//     const list = Object.keys(subObject).map((subKey) => {
+//       const value = subObject[subKey];
+//       return {
+//         descriptor: {
+//           code: subKey,
+//         },
+//         value: typeof value === "string" ? value : value.toString(),
+//       };
+//     });
 
-  return context;
-};
+//     return {
+//       descriptor: {
+//         code: key,
+//       },
+//       ...display,
+//       list: list,
+//     };
+//   });
+// };
 
-const createNestedField = (obj, path, value) => {
+// const buildContext = (session: any, action: any) => {
+//   const contextConfig = [
+//     {
+//       beckn_key: "bap_id",
+//       value: "session.bap_id",
+//     },
+//     {
+//       beckn_key: "bap_uri",
+//       value: "session.bap_uri",
+//     },
+//     {
+//       beckn_key: "bpp_id",
+//       value: "session.bpp_id",
+//     },
+//     {
+//       beckn_key: "bpp_uri",
+//       value: "session.bpp_uri",
+//     },
+//     {
+//       beckn_key: "location.country.code",
+//       value: "session.country",
+//     },
+//     {
+//       beckn_key: "location.city.code",
+//       value: "session.cityCode",
+//     },
+//     {
+//       beckn_key: "transaction_id",
+//       value: "session.currentTransactionId",
+//     },
+//     {
+//       beckn_key: "message_id",
+//       value: "uuidv4()",
+//     },
+//     {
+//       beckn_key: "timestamp",
+//       value: "new Date().toISOString()",
+//     },
+//     {
+//       beckn_key: "domain",
+//       value: "session.domain",
+//     },
+//     {
+//       beckn_key: "version",
+//       value: "session.version",
+//     },
+//     {
+//       beckn_key: "ttl",
+//       value: "session.ttl",
+//     },
+//     {
+//       beckn_key: "action",
+//       value: "action",
+//     },
+//   ];
+//   const context = {};
+
+//   contextConfig.map((item) => {
+//     try {
+//       if (eval(item.value) && (item.check ? eval(item.check) : true))
+//         createNestedField(
+//           context,
+//           item.beckn_key,
+//           item.compute ? eval(item.compute) : eval(item.value)
+//         );
+//     } catch (err) {
+//       logger.info(item.value + " is undefined, will not be mapping that");
+//     }
+//   });
+
+//   return context;
+// };
+
+const createNestedField = (obj: any, path: any, value: any) => {
   const keys = path.split(".");
   let currentObj = obj;
 
@@ -135,7 +143,7 @@ const createNestedField = (obj, path, value) => {
   currentObj[keys[keys.length - 1]] = value;
 };
 
-const createPayload = (config, action, data, session) => {
+const createPayload = (config: any, action: any, data: any, session: any) => {
   const payload = {};
   const startPoint = "START";
   const endPoint = "END";
@@ -147,7 +155,7 @@ const createPayload = (config, action, data, session) => {
   const timestamp = new Date().toISOString();
   const newTranscationId = uuidv4();
 
-  config.map((item) => {
+  config.map((item: any) => {
     try {
       if (eval(item.value) && (item.check ? eval(item.check) : true))
         createNestedField(
@@ -163,12 +171,12 @@ const createPayload = (config, action, data, session) => {
   return payload;
 };
 
-const constructValueObject = (data, key = "business_key") => {
+const constructValueObject = (data: string, key = "business_key") => {
   const dataArray = data.split(",").map((val) => val.trim());
-  let objArray = [];
+  let objArray: Record<string, string>[] = [];
 
   dataArray.forEach((item) => {
-    const obj = {};
+    const obj: Record<string, string> = {};
     const itemArray = item.split(":").map((val) => val.trim());
     obj[key] = itemArray[0];
     const value = "obj." + itemArray[1];
@@ -179,7 +187,7 @@ const constructValueObject = (data, key = "business_key") => {
   return objArray;
 };
 
-const constructPath = (data) => {
+const constructPath = (data: string) => {
   if (data.startsWith(".")) {
     data = data.substring(1, data.length);
   }
@@ -188,7 +196,7 @@ const constructPath = (data) => {
   return data.split(".").join("?.");
 };
 
-const decodeInputString = (input) => {
+const decodeInputString = (input: string) => {
   const tokens = input
     .split(/([\[\]\{\}])/)
     .filter((token) => token.trim() !== "");
@@ -202,11 +210,10 @@ const decodeInputString = (input) => {
   }
 
   let i = 0;
-  let initalConfig = {};
+  let initalConfig: Config = {};
   let currentConfig = initalConfig;
   let lastTokenSquareBracket = false;
   let lastTokenCurlyBracket = false;
-
   while (i < tokens.length) {
     if (lastTokenSquareBracket) {
       if (tokens[i] === "]") {
@@ -258,7 +265,11 @@ const decodeInputString = (input) => {
   return initalConfig;
 };
 
-const extractData = (obj, config, commData = {}) => {
+const extractData = (
+  obj: Record<string, any>,
+  config: Config,
+  commData = {}
+) => {
   if (config?.commanData?.length) {
     config.commanData.map((item) => {
       createNestedField(
@@ -273,8 +284,8 @@ const extractData = (obj, config, commData = {}) => {
 
   const item = config.value;
   if (item.type === "Array") {
-    const response = [];
-    eval(item.path)?.some((data) => {
+    const response: any = [];
+    eval(item.path)?.some((data: any) => {
       const _ = data;
       if (item.check ? eval(item.check) : true) {
         const result = extractData(data, item, commData);
@@ -285,13 +296,13 @@ const extractData = (obj, config, commData = {}) => {
     });
     return response;
   } else if (item.type === "String") {
-    let data = {};
+    let data: any = {};
     data[`${item.key}`] = eval(item.path);
 
     return { ...data, ...commData };
   } else if (item.type === "Object") {
-    const data = {};
-    item.value.map((val) => {
+    const data: Record<string, any> = {};
+    item.value.map((val: any) => {
       if (!eval(val.value)) {
         // console.log(`key ${val.value} not found`);
         // data[val.key] = undefined;
@@ -303,11 +314,11 @@ const extractData = (obj, config, commData = {}) => {
   }
 };
 
-const createBusinessPayload = (myconfig, obj, session) => {
+const createBusinessPayload = (myconfig: any, obj: any) => {
   const payload = {};
 
   try {
-    myconfig.map((conf) => {
+    myconfig.map((conf: any) => {
       if (conf.extractionPath) {
         conf = {
           ...conf,
@@ -332,7 +343,12 @@ const createBusinessPayload = (myconfig, obj, session) => {
   }
 };
 
-const createBecknObject = (session, type, data, config) => {
+export const createBecknObject = (
+  session: any,
+  type: string,
+  data: any,
+  config: any
+): any => {
   if (config.sessionData) {
     const updatedSession = createPayload(
       config.sessionData,
@@ -348,7 +364,12 @@ const createBecknObject = (session, type, data, config) => {
   return { payload, session };
 };
 
-const extractBusinessData = (type, payload, session, protocol) => {
+export const extractBusinessData = (
+  type: string,
+  payload: Record<string, any>,
+  session: any,
+  protocol: any
+) => {
   if (protocol.sessionData) {
     const parsedSchema = createBusinessPayload(protocol.sessionData, payload);
 
@@ -357,12 +378,12 @@ const extractBusinessData = (type, payload, session, protocol) => {
     session = { ...session, ...parsedSchema };
   }
 
-  const result = createBusinessPayload(protocol.mapping, payload, session);
+  const result = createBusinessPayload(protocol.mapping, payload) as any;
 
   return { result, session };
 };
 
-const extractPath = (path, obj) => {
+export const extractPath = (path: string, obj: any) => {
   const payload = {};
 
   try {
@@ -383,8 +404,8 @@ const extractPath = (path, obj) => {
   }
 };
 
-module.exports = {
-  createBecknObject,
-  extractBusinessData,
-  extractPath,
-};
+// module.exports = {
+//   createBecknObject,
+//   extractBusinessData,
+//   extractPath,
+// };

@@ -1,34 +1,31 @@
-const axios = require("axios");
+import axios from "axios";
 const router = require("express").Router();
-const {
-  createBecknObject,
-  extractBusinessData,
-} = require("../core/mapper_core");
-const {
+import { createBecknObject, extractBusinessData } from "../core/mapper_core";
+import {
   insertSession,
   getSession,
   generateSession,
   findSession,
-} = require("../core/session");
-const { generateHeader, verifyHeader } = require("../core/auth_core");
-const { cache } = require("../core/cache");
-const { parseBoolean, jsonout, buildNackPayload } = require("../utils/utils");
+} from "../core/session";
+import { generateHeader, verifyHeader } from "../core/auth_core";
+import { cache } from "../core/cache";
+import { parseBoolean, jsonout, buildNackPayload } from "../utils/utils";
 const IS_VERIFY_AUTH = parseBoolean(process.env.IS_VERIFY_AUTH);
 const IS_SYNC = parseBoolean(process.env.BUSINESS_SERVER_IS_SYNC);
 
-const validateSchema = require("../core/schema");
+import { validateSchema } from "../core/schema";
 const SERVER_TYPE = process.env.SERVER_TYPE;
 const PROTOCOL_SERVER = process.env.PROTOCOL_SERVER;
 const logger = require("../utils/logger").init();
-const { signNack, errorNack, ack } = require("../utils/responses");
-const { dynamicReponse, dynamicFlow } = require("../core/operations/main");
-const { configLoader } = require("../core/loadConfig");
-const { validateAttributes } = require("../core/attributeValidation");
+import { signNack, errorNack, ack } from "../utils/responses";
+import { dynamicReponse, dynamicFlow } from "../core/operations/main";
+import { configLoader } from "../core/loadConfig";
+import validateAttributes from "../core/attributeValidation";
 
 const ASYNC_MODE = "ASYNC";
 const SYNC_MODE = "SYNC";
 
-const becknToBusiness = (req, res) => {
+export const becknToBusiness = (req: any, res: any) => {
   const body = req.body;
   const transaction_id = body?.context?.transaction_id;
   const config = body.context.action;
@@ -36,7 +33,12 @@ const becknToBusiness = (req, res) => {
   validateIncommingRequest(body, transaction_id, config, res);
 };
 
-const validateIncommingRequest = async (body, transaction_id, config, res) => {
+const validateIncommingRequest = async (
+  body: any,
+  transaction_id: string,
+  config: any,
+  res: any
+) => {
   try {
     if (IS_VERIFY_AUTH !== false) {
       if (!(await verifyHeader(body))) {
@@ -51,7 +53,7 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
       session = await getSession(transaction_id);
 
       const configObject = configLoader.getConfig();
-      configName = dynamicFlow(
+      const configName = dynamicFlow(
         body,
         configObject[SERVER_TYPE]["flow_selector"][config]
       );
@@ -77,13 +79,14 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
 
     logger.info("Recieved request: " + JSON.stringify(body));
 
-    const schemaConfig = configLoader.getSchema(session.configName);
+    // const schemaConfig = configLoader.getSchema(session.configName);
+    const schemaConfig = configLoader.getSchema();
 
     if (schemaConfig[config]) {
       const schema = schemaConfig[config];
       const schemaValidation = await validateSchema(body, schema);
 
-      if (!schemaValidation?.status) {
+      if (!schemaValidation?.status && schemaValidation?.message) {
         return res.status(200).send(buildNackPayload(schemaValidation.message));
       }
     } else {
@@ -112,13 +115,17 @@ const validateIncommingRequest = async (body, transaction_id, config, res) => {
     }
 
     res.send(ack);
-    handleRequest(body, session, sessionId);
-  } catch (err) {
+    handleRequest(body, session, sessionId ?? "");
+  } catch (err: any) {
     console.log(err?.data?.message || err);
   }
 };
 
-const handleRequest = async (response, session, sessionId) => {
+const handleRequest = async (
+  response: any,
+  session: any,
+  sessionId: string
+) => {
   try {
     const action = response?.context?.action;
     const messageId = response?.context?.message_id;
@@ -135,7 +142,7 @@ const handleRequest = async (response, session, sessionId) => {
       let config = null;
       let isUnsolicited = true;
 
-      session.calls.map((call) => {
+      session.calls.map((call: any) => {
         if (call.callback?.message_id?.includes(response.context.message_id)) {
           config = call.callback?.config;
           isUnsolicited = false;
@@ -148,7 +155,8 @@ const handleRequest = async (response, session, sessionId) => {
 
       console.log("config >>>>>", config);
 
-      const protocol = configLoader.getMapping(session.configName)[config];
+      const mapping = configLoader.getMapping(session.configName);
+      const protocol = mapping ? mapping[config] : null;
 
       const { result: businessPayload, session: updatedSession } =
         extractBusinessData(action, response, session, protocol);
@@ -159,7 +167,7 @@ const handleRequest = async (response, session, sessionId) => {
       let urlEndpint = null;
       let mode = ASYNC_MODE;
 
-      const updatedCalls = updatedSession.calls.map((call) => {
+      const updatedCalls = updatedSession.calls.map((call: any) => {
         if (isUnsolicited && call.callback.config === action) {
           call.callback.unsolicited = [
             ...(call.callback.unsolicited || []),
@@ -203,7 +211,8 @@ const handleRequest = async (response, session, sessionId) => {
         });
       }
     } else {
-      const protocol = configLoader.getMapping(session.configName)[action];
+      const mapping = configLoader.getMapping(session.configName);
+      const protocol = mapping ? mapping[action] : null;
 
       let { callback, serviceUrl, sync } = dynamicReponse(
         response,
@@ -233,21 +242,23 @@ const handleRequest = async (response, session, sessionId) => {
   }
 };
 
-const businessToBecknWrapper = async (req, res) => {
+export const businessToBecknWrapper = async (req: any, res: any) => {
   try {
     const body = req.body;
-    const { status, message, code } = await businessToBecknMethod(body);
+    const { status, message, code } = (await businessToBecknMethod(
+      body
+    )) as any;
     if (message?.updatedSession?.schema) {
       delete message.updatedSession.schema;
     }
     res.status(code).send({ status: status, message: message });
-  } catch (e) {
+  } catch (e: any) {
     console.log(">>>>>", e);
     res.status(500).send({ error: true, message: e?.message || e });
   }
 };
 
-const businessToBecknMethod = async (body) => {
+export const businessToBecknMethod = async (body: any) => {
   logger.info("inside businessToBecknMethod controller: ");
 
   try {
@@ -295,7 +306,8 @@ const businessToBecknMethod = async (body) => {
 
     // const protocol = mapping[session.configName][config];
     // const protocol = session.protocol[config];
-    const protocol = configLoader.getMapping(session.configName)[config];
+    const mapping = configLoader.getMapping(session.configName);
+    const protocol = mapping ? mapping[config] : null;
 
     ////////////// MAPPING/EXTRACTION ////////////////////////
 
@@ -354,7 +366,7 @@ const businessToBecknMethod = async (body) => {
 
     let mode = null;
     if (SERVER_TYPE === "BAP") {
-      const updatedCalls = updatedSession.calls.map((call) => {
+      const updatedCalls = updatedSession.calls.map((call: any) => {
         const message_id = becknPayload.context.message_id;
         if (call.config === config) {
           // call.message_id = message_id;
@@ -384,7 +396,7 @@ const businessToBecknMethod = async (body) => {
           let businessPayload = null;
           let onBecknPayload = null;
 
-          newSession.calls.map((call) => {
+          newSession.calls.map((call: any) => {
             if (call.config === config) {
               businessPayload = call.callback.businessPayload;
               onBecknPayload = call.callback.becknPayload;
@@ -423,14 +435,14 @@ const businessToBecknMethod = async (body) => {
       };
       // res.send({ updatedSession, becknPayload, becknReponse: response.data });
     }
-  } catch (e) {
+  } catch (e: any) {
     console.log(">>>>>", e?.message, e);
     return { status: "Error", message: errorNack, code: 500 };
     //   res.status(500).send(errorNack);
   }
 };
 
-const updateSession = async (req, res) => {
+export const updateSession = async (req: any, res: any) => {
   const { sessionData, transactionId } = req.body;
   if (!sessionData || !transactionId) {
     return res
@@ -438,7 +450,7 @@ const updateSession = async (req, res) => {
       .send({ message: "session Data || transcationID required" });
   }
 
-  session = await getSession(transactionId);
+  const session = await getSession(transactionId);
 
   if (!session) {
     return res.status(400).send({ message: "No session found" });
@@ -449,9 +461,9 @@ const updateSession = async (req, res) => {
   res.send({ message: "session updated" });
 };
 
-module.exports = {
-  becknToBusiness,
-  businessToBecknMethod,
-  businessToBecknWrapper,
-  updateSession,
-};
+// module.exports = {
+//   becknToBusiness,
+//   businessToBecknMethod,
+//   businessToBecknWrapper,
+//   updateSession,
+// };

@@ -1,9 +1,11 @@
-const router = require("express").Router();
-const {
+import express from "express";
+
+export const router = express.Router();
+import {
   becknToBusiness,
   businessToBecknWrapper,
   updateSession,
-} = require("../controller/index");
+} from "../controller/index";
 
 // buss > beckn
 router.post("/createPayload", businessToBecknWrapper);
@@ -13,8 +15,6 @@ router.post("/ondc/:method", becknToBusiness);
 
 router.post("/updateSession", updateSession);
 
-router.get("/health", (req, res) => {
+router.get("/health", (req: any, res: any) => {
   res.send({ status: "working" });
 });
-
-module.exports = router;

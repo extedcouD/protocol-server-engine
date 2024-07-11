@@ -1,11 +1,11 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+import express from "express";
+import bodyParser from "body-parser";
+import { router } from "./router/router";
 const app = express();
-const connectDB = require("./core/db");
+import connectDB from "./core/db";
 require("dotenv").config();
 
-const router = require("./router/router");
-const { configLoader } = require("./core/loadConfig");
+import { configLoader } from "./core/loadConfig";
 const { parseBoolean } = require("./utils/utils");
 const logger = require("./utils/logger").init();
 
@@ -16,7 +16,7 @@ app.use(express.json());
 
 configLoader
   .init()
-  .then((data) => {
+  .then((data: any) => {
     logger.info("Config loaded successfully.");
 
     if (USE_DB) {
@@ -28,6 +28,6 @@ configLoader
       logger.info("server listening at port " + PORT);
     });
   })
-  .catch((e) => {
+  .catch((e: any) => {
     logger.error("Error loading config file:", e);
   });

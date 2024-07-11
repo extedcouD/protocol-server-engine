@@ -1,15 +1,15 @@
 const fs = require("fs");
 
-const formatted_error = (errors) => {
-  error_list = [];
+export const formatted_error = (errors: any) => {
+  let error_list: any[] = [];
   let status = "";
-  errors.forEach((error) => {
+  errors.forEach((error: any) => {
     if (
       !["not", "oneOf", "anyOf", "allOf", "if", "then", "else"].includes(
         error.keyword
       )
     ) {
-      error_dict = {
+      let error_dict = {
         message: `${error.message}${
           error.params.allowedValues ? ` (${error.params.allowedValues})` : ""
         }${error.params.allowedValue ? ` (${error.params.allowedValue})` : ""}${
@@ -24,11 +24,11 @@ const formatted_error = (errors) => {
   });
   if (error_list.length === 0) status = "pass";
   else status = "fail";
-  error_json = { errors: error_list, status: status };
+  const error_json = { errors: error_list, status: status };
   return error_json;
 };
 
-function parseBoolean(value) {
+export function parseBoolean(value: string | undefined) {
   // Convert 'true' to true and 'false' to false
   if (value === "true") {
     return true;
@@ -39,18 +39,22 @@ function parseBoolean(value) {
   return null;
 }
 
-const jsonout = (json, filename) => {
+export const jsonout = (json: Record<string, any>, filename: string) => {
   console.log("json saved to the file");
   const jsonString = JSON.stringify(json, null, 2);
-  fs.writeFile(`./compare_temp/${filename}.json`, jsonString, (err, out) => {
-    if (err) console.log(err);
-    else {
-      console.log(out);
+  fs.writeFile(
+    `./compare_temp/${filename}.json`,
+    jsonString,
+    (err: any, out: any) => {
+      if (err) console.log(err);
+      else {
+        console.log(out);
+      }
     }
-  });
+  );
 };
 
-const buildNackPayload = (msg, code = "346001") => {
+export const buildNackPayload = (msg: string, code = "346001") => {
   const nack = {
     message: {
       ack: {
@@ -65,5 +69,3 @@ const buildNackPayload = (msg, code = "346001") => {
 
   return nack;
 };
-
-module.exports = { formatted_error, parseBoolean, jsonout, buildNackPayload };

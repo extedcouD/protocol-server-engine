@@ -1,32 +1,36 @@
-const { cache } = require("./cache");
-const fs = require("fs");
-const yaml = require("yaml");
-const path = require("path");
-const $RefParser = require("@apidevtools/json-schema-ref-parser");
-const { parseBoolean } = require("../utils/utils");
-const { configLoader } = require("./loadConfig");
+import { cache } from "./cache";
+import fs from "fs";
+import yaml from "yaml";
+import path from "path";
+import $RefParser from "@apidevtools/json-schema-ref-parser";
+import { parseBoolean } from "../utils/utils";
+import { configLoader } from "./loadConfig";
 const localConfig = parseBoolean(process.env.localConfig);
 const SERVER_TYPE = process.env.SERVER_TYPE;
 
-const insertSession = async (session) => {
+export const insertSession = async (session: any) => {
   await cache.set(session.transaction_id, session, 86400);
 };
 
-const getSession = async (transaction_id) => {
+export const getSession = async (transaction_id: string) => {
   return await cache.get(transaction_id);
 };
 
 function loadConfig() {
+  if (!SERVER_TYPE) {
+    throw new Error("SERVER_TYPE not defined in env variables");
+  }
   return new Promise(async (resolve, reject) => {
     try {
       if (localConfig) {
-        const config = yaml.parse(
+        let config = yaml.parse(
           fs.readFileSync(path.join(__dirname, "../configs/index.yaml"), "utf8")
         );
 
         const schema = await $RefParser.dereference(config);
 
-        this.config = schema;
+        // this.config = schema;
+        config = schema;
 
         resolve(schema[SERVER_TYPE]);
       } else {
@@ -34,17 +38,17 @@ function loadConfig() {
 
         resolve(build_spec[SERVER_TYPE]);
       }
-    } catch (e) {
+    } catch (e: any) {
       throw new Error(e);
     }
   });
 }
 
-const getConfigBasedOnFlow = async (flowId) => {
+const getConfigBasedOnFlow = async (flowId: string) => {
   return new Promise(async (resolve, reject) => {
     try {
-      this.config = await loadConfig();
-
+      // this.config = await loadConfig();
+      const config = (await loadConfig()) as any;
       let filteredProtocol = null;
       let filteredCalls = null;
       let filteredDomain = null;
@@ -54,7 +58,8 @@ const getConfigBasedOnFlow = async (flowId) => {
       let filteredSchema = null;
       let filteredApi = null;
 
-      this.config.flows.forEach((flow) => {
+      // this.config.flows.forEach((flow) => {
+      config.flows.forEach((flow: any) => {
         if (flow.id === flowId) {
           const {
             protocol,
@@ -93,7 +98,7 @@ const getConfigBasedOnFlow = async (flowId) => {
   });
 };
 
-async function generateSession(session_body) {
+export async function generateSession(session_body: any) {
   return new Promise(async (resolve, reject) => {
     const { country, cityCode, transaction_id, configName } = session_body;
 
@@ -106,7 +111,7 @@ async function generateSession(session_body) {
       filteredsummary,
       filteredSchema,
       filteredApi,
-    } = await getConfigBasedOnFlow(configName);
+    } = (await getConfigBasedOnFlow(configName)) as any;
 
     const session = {
       ...session_body,
@@ -130,7 +135,7 @@ async function generateSession(session_body) {
   });
 }
 
-const findSession = async (body) => {
+export const findSession = async (body: any) => {
   try {
     let session = "session";
     const allSessions = await cache.get();

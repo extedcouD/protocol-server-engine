@@ -1,6 +1,6 @@
-const Transaction = require("./model");
+import { Transaction } from "./model";
 
-const upsertTransaction = async (transactionData) => {
+export const upsertTransaction = async (transactionData: any) => {
   try {
     const filter = { transaction_id: transactionData.transaction_id }; // Filter by unique field
     const options = { new: true, upsert: true }; // Create a new document if it doesn't exist, and return the updated document
@@ -19,7 +19,7 @@ const upsertTransaction = async (transactionData) => {
   }
 };
 
-const fetchTransactionById = async (transactionId) => {
+export const fetchTransactionById = async (transactionId: string) => {
   try {
     const transaction = await Transaction.findOne({
       transaction_id: transactionId,
@@ -29,14 +29,14 @@ const fetchTransactionById = async (transactionId) => {
       return null;
     }
     console.log("Transaction found:", transactionId);
-    return transaction._doc;
+    return (transaction as any)._doc;
   } catch (error) {
     console.error("Error fetching transaction:", error);
     throw error;
   }
 };
 
-const fetchAllTransactionsIDs = async () => {
+export const fetchAllTransactionsIDs = async () => {
   try {
     const transactions = await Transaction.find({}, "transaction_id -_id"); // Only select the transaction_id field and exclude the _id field
     const transactionIds = transactions.map(
@@ -48,10 +48,4 @@ const fetchAllTransactionsIDs = async () => {
     console.error("Error fetching all transactions:", error);
     throw error;
   }
-};
-
-module.exports = {
-  fetchTransactionById,
-  fetchAllTransactionsIDs,
-  upsertTransaction,
 };

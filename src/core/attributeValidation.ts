@@ -1,5 +1,10 @@
-function validateAttributes(examples, attributes, example_sets, logKey = "") {
-  let errors = [];
+export default function validateAttributes(
+  examples: any,
+  attributes: any,
+  example_sets: any,
+  logKey = ""
+): any {
+  let errors: any = [];
 
   for (const key in examples) {
     const newKey = logKey ? logKey + "." + key : key;
@@ -45,5 +50,3 @@ function validateAttributes(examples, attributes, example_sets, logKey = "") {
   // console.log("Attribute validation succesful");
   return errors;
 }
-
-module.exports = { validateAttributes };

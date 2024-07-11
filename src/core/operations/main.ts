@@ -1,6 +1,9 @@
-const operator = require("../operations/utils");
+import { evaluateOperation } from "./utils";
 
-const dynamicReponse = (req_body, callback) => {
+export const dynamicReponse = (
+  req_body: Record<string, any>,
+  callback: any
+) => {
   const context = {
     req_body: req_body,
   };
@@ -8,7 +11,7 @@ const dynamicReponse = (req_body, callback) => {
   if (Object.keys(callback).length > 1) {
     for (const payloads in callback) {
       if (payloads != "default") {
-        const result = operator.evaluateOperation(
+        const result = evaluateOperation(
           context,
           callback[payloads].condition?.operation
         );
@@ -29,7 +32,7 @@ const dynamicReponse = (req_body, callback) => {
   };
 };
 
-const dynamicFlow = (req_body, callback) => {
+export const dynamicFlow = (req_body: Record<string, any>, callback: any) => {
   const context = {
     req_body: req_body,
   };
@@ -37,7 +40,7 @@ const dynamicFlow = (req_body, callback) => {
   if (Object.keys(callback).length > 1) {
     for (const payloads in callback) {
       if (payloads != "default") {
-        const result = operator.evaluateOperation(
+        const result = evaluateOperation(
           context,
           callback[payloads].condition?.operation
         );

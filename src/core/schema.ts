@@ -1,18 +1,21 @@
-const Ajv = require("ajv");
+import Ajv from "ajv";
 const ajv = new Ajv({
   allErrors: true,
   strict: "log",
 });
-const addFormats = require("ajv-formats");
-const { formatted_error } = require("../utils/utils");
+import addFormats from "ajv-formats";
+import { formatted_error } from "../utils/utils";
 
 addFormats(ajv);
 require("ajv-errors")(ajv);
 const logger = require("../utils/logger").init();
-const { schemaNack } = require("../utils/responses");
+import { schemaNack } from "../utils/responses";
 // logger = log.init();
 
-const validateSchema = async (payload, schema) => {
+export const validateSchema = async (
+  payload: Record<string, any>,
+  schema: any
+) => {
   logger.info(
     `Inside schema validation service for ${payload?.context?.action} api protocol server`
   );
@@ -23,7 +26,7 @@ const validateSchema = async (payload, schema) => {
       let error_list = validate.errors;
       logger.error(JSON.stringify(formatted_error(error_list)));
       logger.error("Schema validation : FAIL");
-      erroPath = JSON.stringify(formatted_error(error_list));
+      const erroPath = JSON.stringify(formatted_error(error_list));
       return { status: false, message: erroPath };
     } else {
       logger.info("Schema validation : SUCCESS");
@@ -34,4 +37,4 @@ const validateSchema = async (payload, schema) => {
   }
 };
 
-module.exports = validateSchema;
+// module.exports = validateSchema;
