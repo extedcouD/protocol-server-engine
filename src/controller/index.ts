@@ -21,11 +21,12 @@ import { signNack, errorNack, ack } from "../utils/responses";
 import { dynamicReponse, dynamicFlow } from "../core/operations/main";
 import { configLoader } from "../core/loadConfig";
 import validateAttributes from "../core/attributeValidation";
+import { Request, Response } from "express";
 
 const ASYNC_MODE = "ASYNC";
 const SYNC_MODE = "SYNC";
 
-export const becknToBusiness = (req: any, res: any) => {
+export const becknToBusiness = (req: Request, res: Response) => {
   const body = req.body;
   const transaction_id = body?.context?.transaction_id;
   const config = body.context.action;
@@ -34,10 +35,10 @@ export const becknToBusiness = (req: any, res: any) => {
 };
 
 const validateIncommingRequest = async (
-  body: any,
+  body: Record<string, any>,
   transaction_id: string,
   config: any,
-  res: any
+  res: Response
 ) => {
   try {
     if (IS_VERIFY_AUTH !== false) {
@@ -242,7 +243,7 @@ const handleRequest = async (
   }
 };
 
-export const businessToBecknWrapper = async (req: any, res: any) => {
+export const businessToBecknWrapper = async (req: Request, res: Response) => {
   try {
     const body = req.body;
     const { status, message, code } = (await businessToBecknMethod(
@@ -259,8 +260,8 @@ export const businessToBecknWrapper = async (req: any, res: any) => {
 };
 
 export const businessToBecknMethod = async (body: any) => {
-  logger.info("inside businessToBecknMethod controller: ");
-
+  body = body ? body : {};
+  logger.info("inside businessToBecknMethod controller: ", body);
   try {
     //except target i can fetch rest from my payload
     let { type, config, data, transactionId, target, configName } = body;
@@ -442,7 +443,7 @@ export const businessToBecknMethod = async (body: any) => {
   }
 };
 
-export const updateSession = async (req: any, res: any) => {
+export const updateSession = async (req: Request, res: Response) => {
   const { sessionData, transactionId } = req.body;
   if (!sessionData || !transactionId) {
     return res

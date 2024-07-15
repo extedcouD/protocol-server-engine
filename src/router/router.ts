@@ -1,4 +1,5 @@
 import express from "express";
+import { Request, Response } from "express";
 
 export const router = express.Router();
 import {
@@ -15,6 +16,6 @@ router.post("/ondc/:method", becknToBusiness);
 
 router.post("/updateSession", updateSession);
 
-router.get("/health", (req: any, res: any) => {
+router.get("/health", (req: Request, res: Response) => {
   res.send({ status: "working" });
 });
