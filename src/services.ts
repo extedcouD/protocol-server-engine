@@ -1,12 +1,8 @@
-const createBecknObject = require("./core/mapper_core");
-const {
-  getSession,
-  insertSession,
-  generateSession,
-} = require("./core/session");
-const validateSchema = require("./core/schema");
+import { createBecknObject } from "./core/mapper_core";
+import { getSession, insertSession, generateSession } from "./core/session";
+// import validateSchema from "./core/schema";
 
-const getBecknObject = async (payload) => {
+const getBecknObject = async (payload: any) => {
   return new Promise(async (resolve, reject) => {
     const config = payload.context.action;
     // const payload = req.body
