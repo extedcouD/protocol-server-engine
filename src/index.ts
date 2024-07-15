@@ -6,7 +6,13 @@ import connectDB from "./core/db";
 require("dotenv").config();
 
 import { configLoader } from "./core/loadConfig";
-const { parseBoolean } = require("./utils/utils");
+import { parseBoolean } from "./utils/utils";
+
+import { contextValidation } from "./core/contextValidation";
+import PayloadModule from "./core/payloadModule";
+
+const payloadModule = new PayloadModule("TRV:10");
+
 const logger = require("./utils/logger").init();
 
 const USE_DB = parseBoolean(process.env.USE_DB);
