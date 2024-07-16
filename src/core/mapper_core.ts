@@ -39,6 +39,7 @@ const buildTags = (tags: any) => {
 };
 
 const buildContext = (session: any, action: any) => {
+  console.log("buiding context");
   const contextConfig = [
     {
       beckn_key: "bap_id",
