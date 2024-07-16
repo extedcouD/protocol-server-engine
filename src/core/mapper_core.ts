@@ -69,10 +69,10 @@ const buildContext = (session: any, action: any) => {
       beckn_key: "transaction_id",
       value: "session.currentTransactionId",
     },
-    {
-      beckn_key: "message_id",
-      value: "uuidv4()",
-    },
+    // {
+    //   beckn_key: "message_id",
+    //   value: "",
+    // },
     {
       beckn_key: "timestamp",
       value: "new Date().toISOString()",
@@ -94,8 +94,9 @@ const buildContext = (session: any, action: any) => {
       value: "action",
     },
   ];
-  const context = {};
-
+  let context: any = {
+    message_id: uuidv4(),
+  };
   contextConfig.map((item) => {
     try {
       // if (eval(item.value))
@@ -156,8 +157,6 @@ const createPayload = (config: any, action: any, data: any, session: any) => {
   const timestamp = new Date().toISOString();
   const newTranscationId = uuidv4();
 
-  // console.log("session", session);
-
   config.map((item: any) => {
     try {
       if (eval(item.value) && (item.check ? eval(item.check) : true))
@@ -167,6 +166,7 @@ const createPayload = (config: any, action: any, data: any, session: any) => {
           item.compute ? eval(item.compute) : eval(item.value)
         );
     } catch (err) {
+      console.log("error", err);
       logger.info(item.value + " is undefined, will not be mapping that");
     }
   });
