@@ -260,7 +260,6 @@ export const businessToBecknWrapper = async (req: Request, res: Response) => {
 };
 
 export const businessToBecknMethod = async (body: any) => {
-  body = body ? body : {};
   logger.info("inside businessToBecknMethod controller: ", body);
   try {
     //except target i can fetch rest from my payload
@@ -309,9 +308,10 @@ export const businessToBecknMethod = async (body: any) => {
     // const protocol = session.protocol[config];
     const mapping = configLoader.getMapping(session.configName);
     const protocol = mapping ? mapping[config] : null;
-
+    console.log("protocol: ", protocol);
+    console.log("mapping: ", mapping);
     ////////////// MAPPING/EXTRACTION ////////////////////////
-
+    // console.log(session, type, data, protocol, "logs");
     const { payload: becknPayload, session: updatedSession } =
       createBecknObject(session, type, data, protocol);
 

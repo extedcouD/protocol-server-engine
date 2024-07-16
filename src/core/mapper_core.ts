@@ -9,107 +9,107 @@ type Config = {
   path?: string;
 };
 
-// const buildTags = (tags: any) => {
-//   return Object.keys(tags).map((key) => {
-//     const subObject = tags[key];
+const buildTags = (tags: any) => {
+  return Object.keys(tags).map((key) => {
+    const subObject = tags[key];
 
-//     let display =
-//       subObject["display"] === undefined
-//         ? {}
-//         : { display: subObject["display"] };
-//     delete subObject["display"];
-//     const list = Object.keys(subObject).map((subKey) => {
-//       const value = subObject[subKey];
-//       return {
-//         descriptor: {
-//           code: subKey,
-//         },
-//         value: typeof value === "string" ? value : value.toString(),
-//       };
-//     });
+    let display =
+      subObject["display"] === undefined
+        ? {}
+        : { display: subObject["display"] };
+    delete subObject["display"];
+    const list = Object.keys(subObject).map((subKey) => {
+      const value = subObject[subKey];
+      return {
+        descriptor: {
+          code: subKey,
+        },
+        value: typeof value === "string" ? value : value.toString(),
+      };
+    });
 
-//     return {
-//       descriptor: {
-//         code: key,
-//       },
-//       ...display,
-//       list: list,
-//     };
-//   });
-// };
+    return {
+      descriptor: {
+        code: key,
+      },
+      ...display,
+      list: list,
+    };
+  });
+};
 
-// const buildContext = (session: any, action: any) => {
-//   const contextConfig = [
-//     {
-//       beckn_key: "bap_id",
-//       value: "session.bap_id",
-//     },
-//     {
-//       beckn_key: "bap_uri",
-//       value: "session.bap_uri",
-//     },
-//     {
-//       beckn_key: "bpp_id",
-//       value: "session.bpp_id",
-//     },
-//     {
-//       beckn_key: "bpp_uri",
-//       value: "session.bpp_uri",
-//     },
-//     {
-//       beckn_key: "location.country.code",
-//       value: "session.country",
-//     },
-//     {
-//       beckn_key: "location.city.code",
-//       value: "session.cityCode",
-//     },
-//     {
-//       beckn_key: "transaction_id",
-//       value: "session.currentTransactionId",
-//     },
-//     {
-//       beckn_key: "message_id",
-//       value: "uuidv4()",
-//     },
-//     {
-//       beckn_key: "timestamp",
-//       value: "new Date().toISOString()",
-//     },
-//     {
-//       beckn_key: "domain",
-//       value: "session.domain",
-//     },
-//     {
-//       beckn_key: "version",
-//       value: "session.version",
-//     },
-//     {
-//       beckn_key: "ttl",
-//       value: "session.ttl",
-//     },
-//     {
-//       beckn_key: "action",
-//       value: "action",
-//     },
-//   ];
-//   const context = {};
+const buildContext = (session: any, action: any) => {
+  const contextConfig = [
+    {
+      beckn_key: "bap_id",
+      value: "session.bap_id",
+    },
+    {
+      beckn_key: "bap_uri",
+      value: "session.bap_uri",
+    },
+    {
+      beckn_key: "bpp_id",
+      value: "session.bpp_id",
+    },
+    {
+      beckn_key: "bpp_uri",
+      value: "session.bpp_uri",
+    },
+    {
+      beckn_key: "location.country.code",
+      value: "session.country",
+    },
+    {
+      beckn_key: "location.city.code",
+      value: "session.cityCode",
+    },
+    {
+      beckn_key: "transaction_id",
+      value: "session.currentTransactionId",
+    },
+    {
+      beckn_key: "message_id",
+      value: "uuidv4()",
+    },
+    {
+      beckn_key: "timestamp",
+      value: "new Date().toISOString()",
+    },
+    {
+      beckn_key: "domain",
+      value: "session.domain",
+    },
+    {
+      beckn_key: "version",
+      value: "session.version",
+    },
+    {
+      beckn_key: "ttl",
+      value: "session.ttl",
+    },
+    {
+      beckn_key: "action",
+      value: "action",
+    },
+  ];
+  const context = {};
 
-//   contextConfig.map((item) => {
-//     try {
-//       if (eval(item.value) && (item.check ? eval(item.check) : true))
-//         createNestedField(
-//           context,
-//           item.beckn_key,
-//           item.compute ? eval(item.compute) : eval(item.value)
-//         );
-//     } catch (err) {
-//       logger.info(item.value + " is undefined, will not be mapping that");
-//     }
-//   });
-
-//   return context;
-// };
+  contextConfig.map((item) => {
+    try {
+      // if (eval(item.value))
+      createNestedField(context, item.beckn_key, eval(item.value));
+    } catch (err) {
+      logger.info(
+        item.value +
+          eval(item.value) +
+          " is undefined, will not be mapping that"
+      );
+    }
+  });
+  console.log("context", context);
+  return context;
+};
 
 const createNestedField = (obj: any, path: any, value: any) => {
   const keys = path.split(".");
@@ -154,6 +154,8 @@ const createPayload = (config: any, action: any, data: any, session: any) => {
   const paymentId = uuidv4();
   const timestamp = new Date().toISOString();
   const newTranscationId = uuidv4();
+
+  // console.log("session", session);
 
   config.map((item: any) => {
     try {
@@ -338,7 +340,6 @@ const createBusinessPayload = (myconfig: any, obj: any) => {
     return payload;
   } catch (e) {
     logger.info("error while creating bussniss payload", e);
-    console.log("error while creating bussniss payload", e);
     return payload;
   }
 };
