@@ -405,9 +405,3 @@ export const extractPath = (path: string, obj: any) => {
     return payload;
   }
 };
-
-// module.exports = {
-//   createBecknObject,
-//   extractBusinessData,
-//   extractPath,
-// };
